@@ -164,7 +164,7 @@ export default function Hero() {
       {/* Typing Header */}
       <div className="text-center max-w-2xl z-10">
         <motion.h1
-          className="sm:text-6xl md:text-7xl font-semibold"
+          className="text-4xl sm:text-6xl md:text-7xl font-semibold"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2 }}
@@ -199,7 +199,7 @@ export default function Hero() {
             animate="visible"
           >
             <motion.div
-              className="flex items-center justify-center gap-4 text-2xl text-gray-300 text-center"
+              className="flex items-center justify-center text-lg gap-4 md:text-2xl text-gray-300 text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
@@ -211,7 +211,7 @@ export default function Hero() {
 
             {/* Right Sidebar */}
             <motion.aside
-              className="absolute right-0 top-0 h-screen w-20 bg-black/30 flex flex-col items-center py-6"
+              className="absolute hidden sm:block right-0 top-0 h-screen w-20 bg-black/30 flex flex-col items-center py-6"
               variants={fadeInUp}
             >
               <motion.div className="mb-4" variants={fadeInUp}>
@@ -235,7 +235,7 @@ export default function Hero() {
             </motion.aside>
 
             {/* Bottom Button */}
-            <motion.div className="absolute bottom-10 left-10" variants={fadeInUp}>
+            <motion.div className="absolute hidden sm:block bottom-10 left-10" variants={fadeInUp}>
               <button className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow hover:bg-blue-700 text-lg transition">
                 Journey
               </button>
