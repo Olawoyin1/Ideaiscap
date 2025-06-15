@@ -17,8 +17,7 @@ const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
-
-const keywordVariant = {
+const keywordVariant: Variants = {
   initial: { opacity: 0, y: 50, filter: "blur(6px)" },
   animate: {
     opacity: 1,
@@ -33,6 +32,7 @@ const keywordVariant = {
     transition: { duration: 0.3 },
   },
 };
+
 
 export default function Hero() {
   const [phase, setPhase] = useState<
