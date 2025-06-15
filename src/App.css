@@ -16,7 +16,7 @@ body{
     text-decoration: none;
   }   
   
-  .hero-txt{
+  .hero-txt, .cf{
     font-family: "Dosis", sans-serif;
     
   }

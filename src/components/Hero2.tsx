@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
+import { GrClose } from "react-icons/gr";
+import { Link } from "react-router-dom";
+
 
 const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
 const typingSpeed = 120;
@@ -42,6 +45,34 @@ export default function Hero() {
   const [keywordIndex, setKeywordIndex] = useState(0);
   const [finalIndex, setFinalIndex] = useState(0);
   const [lineCount, setLineCount] = useState(4);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+
+  const navItems = [
+  { name: "OUR PURPOSE", href: "/purpose" },
+  { name: "LAST GENERATION", href: "/last-generation" },
+  { name: "FILOSOFI", href: "/filosofi" },
+  { name: "SOCIOLOJI", href: "/socioloji" },
+  { name: "CONNECT", href: "/connect" },
+];
+
+
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.3, delayChildren: 0.7 },
+  },
+};
+
+const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", bounce: 0.4 },
+  },
+};
 
   const introText = "IDEA IS ...";
   const spacedFinal = "IDEA IS CAPITAL".split("");
@@ -67,18 +98,6 @@ export default function Hero() {
     return () => clearTimeout(delay);
   }, [phase, introIndex]);
 
-  // Slide up keywords
-  // useEffect(() => {
-  //   if (phase !== 'keywords') return;
-  //   if (keywordIndex < keywords.length) {
-  //     const timeout = setTimeout(() => {
-  //       setKeywordIndex((i) => i + 1);
-  //     }, 2000);
-  //     return () => clearTimeout(timeout);
-  //   }
-  //   const pause = setTimeout(() => setPhase('typingFinal'), 0);
-  //   return () => clearTimeout(pause);
-  // }, [phase, keywordIndex]);
 
   useEffect(() => {
     if (phase !== "keywords") return;
@@ -219,7 +238,7 @@ export default function Hero() {
               variants={fadeInUp}
             >
               <motion.div className="mb-4" variants={fadeInUp}>
-                <FiMenu className="text-white text-2xl cursor-pointer" />
+                <FiMenu className="text-white  text-2xl cursor-pointer rotate-90" onClick={() => setMenuOpen(true)}/>
               </motion.div>
               <motion.nav
                 className="flex flex-col justify-evenly flex-1 items-center text-white text-xs tracking-wide font-semibold"
@@ -251,6 +270,63 @@ export default function Hero() {
           </motion.div>
         )}
       </div>
+
+        <AnimatePresence>
+  {menuOpen && (
+    <motion.div
+      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "100%" }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+    >
+      {/* Close icon */}
+      <div
+        className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
+        onClick={() => setMenuOpen(false)}
+      >
+        <GrClose />
+      </div>
+
+      {/* AnimatePresence for list */}
+      <motion.ul
+        className="text-white text-3xl space-y-6 text-center"
+        variants={containerVariant}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+      >
+        {navItems.map((item) => (
+          <motion.li key={item.name} variants={itemVariant}>
+            <Link
+              to={item.href}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent immediate navigation
+                // Wait for exit animation before navigating
+                setMenuOpen(false);
+                setTimeout(() => {
+                  window.location.href = item.href;
+                }, 500); // Match exit duration (0.6s)
+              }}
+              className="hover:text-blue-400 cf transition"
+            >
+              {item.name}
+            </Link>
+
+            {item.name === "LAST GENERATION" && (
+              <div className="h-px w-130 mx-auto bg-white/20 mt-9" />
+            )}
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+
+
+
+
     </section>
   );
 }

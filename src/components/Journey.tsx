@@ -44,7 +44,7 @@ const Journey = () => {
         </motion.p>
 
         {/* Main Paragraph */}
-        <motion.p className="text-justify  text-xl my-0 mb-4 p-0 box-border" variants={fadeInUp}>
+        <motion.p className="text-justify  text-sm  md:text-lg my-0 mb-4 p-0 box-border" variants={fadeInUp}>
           Are you ready to build? Are you ready for solutions? Are you ready to change your behavior? Are
           you ready to be honorable? Are you ready to let go of your ego? Are you ready to create a
           community? Are you ready to stop blaming others for your difficulties? Are you ready to
@@ -63,7 +63,7 @@ const Journey = () => {
         </motion.p>
 
         {/* Final Paragraph */}
-        <motion.p className="text-justify  text-xl my-0 mb-4 p-0 box-border" variants={fadeInUp}>
+        <motion.p className="text-justify text-sm  md:text-lg my-0 mb-4 p-0 box-border" variants={fadeInUp}>
           Think big, think ahead, think globally. Great achievements stem from great ideas. Africa requires
           bold, innovative concepts and a generation willing to take risks to bring them to life. Learning
           from past mistakes and adopting a systematic approach is essential. Only through this method can we
