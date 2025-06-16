@@ -313,15 +313,15 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.nav
-            className="container flex items-center justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
+            className="container flex items-center min-h-10 justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
             variants={containerVariants}
           >
             {[
-              { name: "Facebook", url: "https://facebook.com" },
-              { name: "Instagram", url: "https://instagram.com" },
-              { name: "LinkedIn", url: "https://linkedin.com" },
-              { name: "TikTok", url: "https://tiktok.com" },
-              { name: "X", url: "https://x.com" },
+              { name: "Facebook", url: "https://facebook.com/ideaiscap" },
+              { name: "Instagram", url: "https://instagram.com/ideaiscap" },
+              { name: "LinkedIn", url: "https://linkedin.com/company/ideaiscap" },
+              { name: "TikTok", url: "https://tiktok.com/@ideaiscap" },
+              { name: "X", url: "https://x.com/ideaiscap" },
             ].map((item, idx, arr) => (
               <React.Fragment key={item.name}>
                 <motion.a
