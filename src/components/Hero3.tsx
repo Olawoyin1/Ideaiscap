@@ -275,6 +275,8 @@ export default function Hero() {
   const [finalIndex, setFinalIndex] = useState(0);
   const [lineCount, setLineCount] = useState(4);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showDots, setShowDots] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -303,7 +305,8 @@ export default function Hero() {
     },
   };
 
-  const introText = "IDEA IS ...";
+  const introText = "IDEA IS ";
+  
   const spacedFinal = "IDEA IS CAPITAL".split("");
 
   // Responsive vertical lines
@@ -315,17 +318,41 @@ export default function Hero() {
   }, []);
 
   // Typing "IDEA IS ..." with delay
-  useEffect(() => {
-    if (phase !== "intro") return;
-    if (introIndex < introText.length) {
-      const timeout = setTimeout(() => {
-        setIntroIndex((i) => i + 1);
-      }, typingSpeed);
-      return () => clearTimeout(timeout);
-    }
-    const delay = setTimeout(() => setPhase("keywords"), 1200);
-    return () => clearTimeout(delay);
-  }, [phase, introIndex]);
+//   useEffect(() => {
+//     if (phase !== "intro") return;
+//     if (introIndex < introText.length) {
+//       const timeout = setTimeout(() => {
+//         setIntroIndex((i) => i + 1);
+//       }, typingSpeed);
+//       return () => clearTimeout(timeout);
+//     }
+//     const delay = setTimeout(() => setPhase("keywords"), 1200);
+//     return () => clearTimeout(delay);
+//   }, [phase, introIndex]);
+
+
+
+useEffect(() => {
+  if (phase !== "intro") return;
+  if (introIndex < introText.length) {
+    const timeout = setTimeout(() => {
+      setIntroIndex((i) => i + 1);
+    }, typingSpeed);
+    return () => clearTimeout(timeout);
+  }
+
+  // Start dot animation after typing finishes
+  setShowDots(true);
+
+  // Wait 3s with animated dots before showing keywords
+  const delay = setTimeout(() => {
+    setShowDots(false);
+    setPhase("keywords");
+  }, 3000);
+
+  return () => clearTimeout(delay);
+}, [phase, introIndex]);
+
 
   useEffect(() => {
     if (phase !== "keywords") return;
@@ -388,7 +415,7 @@ export default function Hero() {
 
       <div className="text-center max-w-2xl z-10">
         {/* Step 1: Typing IDEA IS ... */}
-        {phase === "intro" && (
+        {/* {phase === "intro" && (
           <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold">
             {introText
               .slice(0, introIndex)
@@ -405,7 +432,54 @@ export default function Hero() {
                 </motion.span>
               ))}
           </h1>
-        )}
+        )} */}
+
+
+        {phase === "intro" && (
+  <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
+    {/* Typed "IDEA IS" */}
+    {introText
+      .slice(0, introIndex)
+      .split("")
+      .map((char, i) => (
+        <motion.span
+          key={i}
+          className="inline-block"
+          initial={{ opacity: 0, filter: "blur(6px)" }}
+          animate={{ opacity: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.5 }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+
+    {/* Animated Dots */}
+    {showDots && (
+      <div className="flex gap-1 ml-2">
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="text-5xl sm:text-6xl md:text-7xl text-blue-300"
+            initial={{ opacity: 0, y: 0 }}
+            animate={{
+              opacity: [0, 1, 0],
+              y: [0, -4, 0],
+            }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut",
+            }}
+          >
+            .
+          </motion.span>
+        ))}
+      </div>
+    )}
+  </h1>
+)}
+
 
         {/* Step 2: Slide up keywords */}
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
@@ -426,7 +500,7 @@ export default function Hero() {
     <motion.h1
       className="text-5xl sm:text-6xl md:text-7xl hero-txt font-semibold whitespace-nowrap"
       initial={{ x: 0, scale: 1 }}
-      animate={{ x: -80, scale: 0.8 }}
+      animate={{ x: -40, scale: 0.7 }}
       transition={{ type: "spring", stiffness: 140, damping: 10 }}
     >
       IDEA IS
