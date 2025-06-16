@@ -244,18 +244,25 @@ const itemVariant: Variants = {
                 className="flex flex-col justify-evenly flex-1 items-center text-white text-xs tracking-wide font-semibold"
                 variants={containerVariants}
               >
-                {["Facebook", "X", "Instagram", "LinkedIn", "TikTok"].map(
-                  (name) => (
-                    <motion.a
-                      key={name}
-                      href="/"
-                      className="rotate-[-90deg] hover:text-blue-400 transition"
-                      variants={fadeInUp}
-                    >
-                      {name}
-                    </motion.a>
-                  )
-                )}
+                {[
+  { name: "Facebook", url: "https://facebook.com/ideaiscapital" },
+  { name: "X", url: "https://x.com/ideaiscapial" }, // formerly Twitter
+  { name: "Instagram", url: "https://instagram.com/ideaiscapital" },
+  { name: "LinkedIn", url: "https://linkedin.com/company/ideaiscapital" },
+  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
+].map(({ name, url }) => (
+  <motion.a
+    key={name}
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="rotate-[-90deg] hover:text-blue-400 transition"
+    variants={fadeInUp}
+  >
+    {name}
+  </motion.a>
+))}
+
               </motion.nav>
             </motion.aside>
 
