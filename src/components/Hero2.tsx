@@ -4,7 +4,6 @@ import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
 
-
 const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
 const typingSpeed = 120;
 
@@ -36,7 +35,6 @@ const keywordVariant: Variants = {
   },
 };
 
-
 export default function Hero() {
   const [phase, setPhase] = useState<
     "intro" | "keywords" | "typingFinal" | "done"
@@ -47,32 +45,30 @@ export default function Hero() {
   const [lineCount, setLineCount] = useState(4);
   const [menuOpen, setMenuOpen] = useState(false);
 
-
   const navItems = [
-  { name: "OUR PURPOSE", href: "/purpose" },
-  { name: "LAST GENERATION", href: "/last-generation" },
-  { name: "FILOSOFI", href: "/filosofi" },
-  { name: "SOCIOLOJI", href: "/socioloji" },
-  { name: "CONNECT", href: "/connect" },
-];
+    { name: "OUR PURPOSE", href: "/purpose" },
+    { name: "LAST GENERATION", href: "/last-generation" },
+    { name: "FILOSOFI", href: "/filosofi" },
+    { name: "SOCIOLOJI", href: "/socioloji" },
+    { name: "CONNECT", href: "/connect" },
+  ];
 
+  const containerVariant: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3, delayChildren: 0.7 },
+    },
+  };
 
-const containerVariant: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.3, delayChildren: 0.7 },
-  },
-};
-
-const itemVariant: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", bounce: 0.4 },
-  },
-};
+  const itemVariant: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", bounce: 0.4 },
+    },
+  };
 
   const introText = "IDEA IS ...";
   const spacedFinal = "IDEA IS CAPITAL".split("");
@@ -97,7 +93,6 @@ const itemVariant: Variants = {
     const delay = setTimeout(() => setPhase("keywords"), 1200);
     return () => clearTimeout(delay);
   }, [phase, introIndex]);
-
 
   useEffect(() => {
     if (phase !== "keywords") return;
@@ -238,31 +233,42 @@ const itemVariant: Variants = {
               variants={fadeInUp}
             >
               <motion.div className="mb-4" variants={fadeInUp}>
-                <FiMenu className="text-white  text-2xl cursor-pointer rotate-90" onClick={() => setMenuOpen(true)}/>
+                <FiMenu
+                  className="text-white  text-2xl cursor-pointer rotate-90"
+                  onClick={() => setMenuOpen(true)}
+                />
               </motion.div>
               <motion.nav
                 className="flex flex-col justify-evenly flex-1 items-center text-white text-xs tracking-wide font-semibold"
                 variants={containerVariants}
               >
                 {[
-  { name: "Facebook", url: "https://facebook.com/ideaiscapital" },
-  { name: "X", url: "https://x.com/ideaiscapial" }, // formerly Twitter
-  { name: "Instagram", url: "https://instagram.com/ideaiscapital" },
-  { name: "LinkedIn", url: "https://linkedin.com/company/ideaiscapital" },
-  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
-].map(({ name, url }) => (
-  <motion.a
-    key={name}
-    href={url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="rotate-[-90deg] hover:text-blue-400 transition"
-    variants={fadeInUp}
-  >
-    {name}
-  </motion.a>
-))}
-
+                  {
+                    name: "Facebook",
+                    url: "https://facebook.com/ideaiscapital",
+                  },
+                  { name: "X", url: "https://x.com/ideaiscapial" }, // formerly Twitter
+                  {
+                    name: "Instagram",
+                    url: "https://instagram.com/ideaiscapital",
+                  },
+                  {
+                    name: "LinkedIn",
+                    url: "https://linkedin.com/company/ideaiscapital",
+                  },
+                  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
+                ].map(({ name, url }) => (
+                  <motion.a
+                    key={name}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rotate-[-90deg] hover:text-blue-400 transition"
+                    variants={fadeInUp}
+                  >
+                    {name}
+                  </motion.a>
+                ))}
               </motion.nav>
             </motion.aside>
 
@@ -270,70 +276,65 @@ const itemVariant: Variants = {
               className="absolute hidden sm:block bottom-10 left-10"
               variants={fadeInUp}
             >
-              <button className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow hover:bg-blue-700 text-lg transition">
+              <a href="#journey" className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow hover:bg-blue-700 text-lg transition">
                 Journey
-              </button>
+              </a>
             </motion.div>
           </motion.div>
         )}
       </div>
 
-        <AnimatePresence>
-  {menuOpen && (
-    <motion.div
-      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
-      initial={{ y: "100%" }}
-      animate={{ y: 0 }}
-      exit={{ y: "100%" }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
-    >
-      {/* Close icon */}
-      <div
-        className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
-        onClick={() => setMenuOpen(false)}
-      >
-        <GrClose />
-      </div>
-
-      {/* AnimatePresence for list */}
-      <motion.ul
-        className="text-white text-3xl space-y-6 text-center"
-        variants={containerVariant}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-      >
-        {navItems.map((item) => (
-          <motion.li key={item.name} variants={itemVariant}>
-            <Link
-              to={item.href}
-              onClick={(e) => {
-                e.preventDefault(); // Prevent immediate navigation
-                // Wait for exit animation before navigating
-                setMenuOpen(false);
-                setTimeout(() => {
-                  window.location.href = item.href;
-                }, 500); // Match exit duration (0.6s)
-              }}
-              className="hover:text-blue-400 cf transition"
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            {/* Close icon */}
+            <div
+              className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
+              onClick={() => setMenuOpen(false)}
             >
-              {item.name}
-            </Link>
+              <GrClose />
+            </div>
 
-            {item.name === "LAST GENERATION" && (
-              <div className="h-px w-130 mx-auto bg-white/20 mt-9" />
-            )}
-          </motion.li>
-        ))}
-      </motion.ul>
-    </motion.div>
-  )}
-</AnimatePresence>
+            {/* AnimatePresence for list */}
+            <motion.ul
+              className="text-white text-3xl space-y-6 text-center"
+              variants={containerVariant}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              {navItems.map((item) => (
+                <motion.li key={item.name} variants={itemVariant}>
+                  <Link
+                    to={item.href}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent immediate navigation
+                      // Wait for exit animation before navigating
+                      setMenuOpen(false);
+                      setTimeout(() => {
+                        window.location.href = item.href;
+                      }, 500); // Match exit duration (0.6s)
+                    }}
+                    className="hover:text-blue-400 cf transition"
+                  >
+                    {item.name}
+                  </Link>
 
-
-
-
-
+                  {item.name === "LAST GENERATION" && (
+                    <div className="h-px w-130 mx-auto bg-white/20 mt-9" />
+                  )}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

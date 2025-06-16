@@ -26,6 +26,7 @@ const Journey = () => {
     <motion.div
       className="py-17 min-h-[100vh] mx-auto box-border"
       initial="hidden"
+      id="journey"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={container}
