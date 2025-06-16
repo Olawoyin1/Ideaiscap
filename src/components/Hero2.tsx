@@ -5,7 +5,6 @@ import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
 const typingSpeed = 120;
 
@@ -280,74 +279,70 @@ export default function Hero() {
               className="absolute hidden sm:block bottom-10 left-10"
               variants={fadeInUp}
             >
-              <a href="#journey" className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow transition-all hover:bg-blue-700 text-lg ">
+              <a
+                href="#journey"
+                className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow transition-all hover:bg-blue-700 text-lg "
+              >
                 Journey
               </a>
             </motion.div>
           </motion.div>
         )}
 
-
-
         {/* Menu icon for small screens only */}
-        <motion.div
-          className="absolute sm:hidden top-7 right-7 rotate-90 z-50"
-          variants={fadeInUp}
-        >
-          <FiMenu
-            className="text-white text-3xl cursor-pointer"
-            onClick={() => setMenuOpen(true)}
-          />
-        </motion.div>
-
+        {phase === "done" && (
+          <motion.div
+            className="absolute sm:hidden top-7 right-7 rotate-90 z-50"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <FiMenu
+              className="text-white text-3xl cursor-pointer"
+              onClick={() => setMenuOpen(true)}
+            />
+          </motion.div>
+        )}
       </div>
 
-
-
-
-
-<motion.div
-  className="fixed block sm:hidden bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm py-3 z-50"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: "easeOut" }}
->
-  <motion.nav
-    className="container flex items-center justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
-    variants={containerVariants}
-  >
-    {[
-      { name: "Facebook", url: "https://facebook.com" },
-      { name: "Instagram", url: "https://instagram.com" },
-      { name: "LinkedIn", url: "https://linkedin.com" },
-      { name: "TikTok", url: "https://tiktok.com" },
-      { name: "X", url: "https://x.com" },
-    ].map((item, idx, arr) => (
-      <React.Fragment key={item.name}>
-        <motion.a
-          href={item.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-blue-400 transition"
-          variants={fadeInUp}
+      {phase === "done" && (
+        <motion.div
+          className="fixed block sm:hidden bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm py-3 z-50"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {item.name}
-        </motion.a>
-        {idx < arr.length - 1 && (
-          <motion.span className="text-white/50" variants={fadeInUp}>
-            |
-          </motion.span>
-        )}
-      </React.Fragment>
-    ))}
-  </motion.nav>
-</motion.div>
-
-
-
-
-
-      
+          <motion.nav
+            className="container flex items-center justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
+            variants={containerVariants}
+          >
+            {[
+              { name: "Facebook", url: "https://facebook.com" },
+              { name: "Instagram", url: "https://instagram.com" },
+              { name: "LinkedIn", url: "https://linkedin.com" },
+              { name: "TikTok", url: "https://tiktok.com" },
+              { name: "X", url: "https://x.com" },
+            ].map((item, idx, arr) => (
+              <React.Fragment key={item.name}>
+                <motion.a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-400 transition"
+                  variants={fadeInUp}
+                >
+                  {item.name}
+                </motion.a>
+                {idx < arr.length - 1 && (
+                  <motion.span className="text-white/50" variants={fadeInUp}>
+                    |
+                  </motion.span>
+                )}
+              </React.Fragment>
+            ))}
+          </motion.nav>
+        </motion.div>
+      )}
 
       <AnimatePresence>
         {menuOpen && (
@@ -368,7 +363,7 @@ export default function Hero() {
 
             {/* AnimatePresence for list */}
             <motion.ul
-              className="text-white text-3xl space-y-6 text-center"
+              className="text-white text-xl sm:text-3xl space-y-6 text-center"
               variants={containerVariant}
               initial="hidden"
               animate="visible"
@@ -377,18 +372,18 @@ export default function Hero() {
               {navItems.map((item) => (
                 <motion.li key={item.name} variants={itemVariant}>
                   <Link
-  to={item.href}
-  onClick={(e) => {
-    e.preventDefault(); // Prevent immediate routing
-    setMenuOpen(false); // Trigger exit animation
-    setTimeout(() => {
-      navigate(item.href); // Proper route transition
-    }, 600); // Match your motion exit transition
-  }}
-  className="hover:text-blue-400 cf transition"
->
-  {item.name}
-</Link>
+                    to={item.href}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent immediate routing
+                      setMenuOpen(false); // Trigger exit animation
+                      setTimeout(() => {
+                        navigate(item.href); // Proper route transition
+                      }, 600); // Match your motion exit transition
+                    }}
+                    className="hover:text-blue-400 cf transition"
+                  >
+                    {item.name}
+                  </Link>
 
                   {item.name === "LAST GENERATION" && (
                     <div className="h-px w-130 mx-auto bg-white/20 mt-9" />

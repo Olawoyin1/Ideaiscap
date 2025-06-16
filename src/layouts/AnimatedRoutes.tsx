@@ -18,7 +18,7 @@ export default function AnimatedRoutes() {
   return (
     <Suspense
       fallback={
-        <div className="fixed inset-0 flex items-center justify-center text-white text-xl">
+        <div className="fixed inset-0 flex bg-black items-center justify-center text-white text-xl">
           Loading...
         </div>
       }
