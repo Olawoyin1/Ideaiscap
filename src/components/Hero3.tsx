@@ -74,7 +74,7 @@ export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDots, setShowDots] = useState(false);
 
-  const [_isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   const navItems = [
@@ -208,7 +208,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="text-center max-w-2xl bg-red- -ml-20 -mt-8 z-10">
+      <div className="text-center max-w-2xl bg-red- md:-ml-20 md:-mt-8 z-10">
         {/* Step 1: Typing IDEA IS ... */}
         {phase === "intro" && (
           // <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
@@ -256,17 +256,32 @@ export default function Hero() {
         {/* Step 2: Slide up keywords */}
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
+          // <motion.h1
+          //   className="absolute  top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+          //   initial={{ x: "-50%", scale: 1 }}
+          //   animate={{ x: "-500px", scale: 0.75 }} // 👈 move farther left
+          //   transition={{
+          //     // duration: 1.5, // 👈 slow down the movement
+          //     ease: "easeInOut",
+          //   }}
+          // >
+          //   IDEA IS
+          // </motion.h1>
+
           <motion.h1
-            className="absolute  top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
-            initial={{ x: "-50%", scale: 1 }}
-            animate={{ x: "-500px", scale: 0.75 }} // 👈 move farther left
-            transition={{
-              // duration: 1.5, // 👈 slow down the movement
-              ease: "easeInOut",
-            }}
-          >
-            IDEA IS
-          </motion.h1>
+          className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+          initial={{ x: "-50%", y: "-50%", scale: 1 }}
+          animate={
+            isMobile
+              ? { y: "-80px", scale: 0.75 } // 👈 Slide up on mobile
+              : { x: "-500px", y:"-10px", scale: 0.75 } // 👈 Slide left on desktop
+          }
+          transition={{
+            ease: "easeInOut",
+          }}
+        >
+          IDEA IS
+        </motion.h1>
         )}
 
         {phase === "keywords" && (
@@ -426,7 +441,7 @@ export default function Hero() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400  transition"
+                  className="hover:text-blue-400 pf transition"
                   variants={fadeInUp}
                 >
                   {item.name}
@@ -478,7 +493,7 @@ export default function Hero() {
                         navigate(item.href); // Proper route transition
                       }, 600); // Match your motion exit transition
                     }}
-                    className="hover:text-blue-400 text-black cf transition"
+                    className="hover:text-blue-400  text-black cf transition"
                   >
                     {item.name}
                   </Link>
