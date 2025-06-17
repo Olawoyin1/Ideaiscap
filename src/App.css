@@ -65,7 +65,7 @@ html{
         margin: 0px 0px 8px;
         padding: 0px;
         box-sizing: border-box;
-        font-size: 70px;
+        /* font-size: 70px; */
         line-height: 79.2px;
         margin-bottom: 8px;
         color: rgb(255, 255, 255);

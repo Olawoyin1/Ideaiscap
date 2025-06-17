@@ -269,7 +269,7 @@ export default function Hero() {
           // </motion.h1>
 
           <motion.h1
-          className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+          className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-4xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
           initial={{ x: "-50%", y: "-50%", scale: 1 }}
           animate={
             isMobile
@@ -327,7 +327,7 @@ export default function Hero() {
             animate="visible"
           >
             <motion.div
-              className="flex  items-center justify-center pf text-xl text-gray-200 uppercase   gap-2 sm:gap-4 tracking-[5px]  text-center"
+              className="flex  items-center justify-center pf text-xl text-gray-200 uppercase   gap-2 sm:gap-4 md:tracking-[5px] tracking-[2px]  text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
