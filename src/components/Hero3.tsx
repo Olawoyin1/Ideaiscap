@@ -289,7 +289,7 @@ export default function Hero() {
             <AnimatePresence mode="wait">
               <motion.h1
                 key={keywords[keywordIndex - 1]}
-                className="text-4xl sm:text-5xl md:text-8xl tracking-[5px] font-bold pf text-blue-400 text-center"
+                className="text-7xl md:text-8xl tracking-[4px] font-bold pf text-blue-400 text-center"
                 variants={keywordVariant}
                 initial="initial"
                 animate="animate"
@@ -391,7 +391,7 @@ export default function Hero() {
             >
               <a
                 href="#journey"
-                className="px-5 py-[12px] font-semibold tracking-[2px] text-sm  bg-black uppercase pf text-white  cursor-pointer transition-colors duration-300 m-0 box-border leading-2 touch-manipulation appearance-none transform  opacity-100 scroll-smooth"
+                className="px-5 py-[12px] hover:bg-[#0584F2] font-semibold tracking-[2px] text-sm  bg-black uppercase pf text-white  cursor-pointer transition-colors duration-300 m-0 box-border leading-2 touch-manipulation appearance-none transform  opacity-100 scroll-smooth"
               >
                 Journey
               </a>
