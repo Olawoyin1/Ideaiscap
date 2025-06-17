@@ -4,7 +4,7 @@ import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { TiThMenu } from "react-icons/ti";
 
 const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
 const typingSpeed = 120;
@@ -59,81 +59,72 @@ export default function Hero() {
     { name: "CONNECT", href: "/connect" },
   ];
 
-useEffect(() => {
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 640); // Tailwind's `sm`
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640); // Tailwind's `sm`
+    };
+
+    handleResize(); // set initially
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // const ideaVariants: Variants = {
+  //   initial: {
+  //     x: 0,
+  //     scale: 1,
+  //   },
+  //   animate: {
+  //     x: [-0, -120,-0,  -30],
+  //     scale: 0.7,
+  //     transition: {
+  //       scale: { duration: 0.4, ease: "easeInOut" },
+  //       x: {
+  //         delay: 0.4,
+  // times: [0, 0.6, 1],
+  //         duration: 1,
+  //         ease: "easeInOut",
+  //       },
+  //     },
+  //   },
+  // };
+
+  const ideaVariants: Variants = {
+    initial: {
+      x: 0,
+      y: 0,
+      scale: 1,
+    },
+    animate: isMobile
+      ? {
+          scale: 0.7,
+          y: -20,
+          x: 0,
+          transition: {
+            scale: { duration: 0.4, ease: "easeInOut" },
+            y: {
+              delay: 0.3,
+              type: "spring",
+              bounce: 0.6,
+              stiffness: 100,
+              damping: 10,
+            },
+          },
+        }
+      : {
+          scale: 0.7,
+          x: [-100, 100, 0],
+          y: 0,
+          transition: {
+            scale: { duration: 0.4, ease: "easeInOut" },
+            x: {
+              delay: 0.3,
+              duration: 1.2,
+              ease: "easeInOut",
+            },
+          },
+        },
   };
-
-  handleResize(); // set initially
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
-
-
-  
-
-
-
-// const ideaVariants: Variants = {
-//   initial: {
-//     x: 0,
-//     scale: 1,
-//   },
-//   animate: {
-//     x: [-0, -120,-0,  -30],
-//     scale: 0.7,
-//     transition: {
-//       scale: { duration: 0.4, ease: "easeInOut" },
-//       x: {
-//         delay: 0.4,
-        // times: [0, 0.6, 1],
-//         duration: 1,
-//         ease: "easeInOut",
-//       },
-//     },
-//   },
-// };
-
-
-const ideaVariants: Variants = {
-  initial: {
-    x: 0,
-    y: 0,
-    scale: 1,
-  },
-  animate: isMobile
-    ? {
-        scale: 0.7,
-        y: -20,
-        x: 0,
-        transition: {
-          scale: { duration: 0.4, ease: "easeInOut" },
-          y: {
-            delay: 0.3,
-            type: "spring",
-            bounce: 0.6,
-            stiffness: 100,
-            damping: 10,
-          },
-        },
-      }
-    : {
-        scale: 0.7,
-        x: [-100, 100, 0],
-        y: 0,
-        transition: {
-          scale: { duration: 0.4, ease: "easeInOut" },
-          x: {
-            delay: 0.3,
-            duration: 1.2,
-            ease: "easeInOut",
-          },
-        },
-      },
-};
-
-
-
 
   const containerVariant: Variants = {
     hidden: { opacity: 0 },
@@ -296,19 +287,20 @@ const ideaVariants: Variants = {
         {/* Step 2: Slide up keywords */}
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
-          <div className={`flex flex-col ${isMobile ? "items-center" : "flex-row items-center gap-4"} mt-4 min-h-[70px]`}>
-
+          <div
+            className={`flex flex-col ${
+              isMobile ? "items-center" : "flex-row items-center gap-4"
+            } mt-4 min-h-[70px]`}
+          >
             {/* Static Left-Aligned IDEA IS */}
             <motion.h1
-  className="text-5xl sm:text-6xl md:text-7xl font-semibold whitespace-nowrap hero-txt text-center sm:text-left"
-  variants={ideaVariants}
-  initial="initial"
-  animate="animate"
->
-  IDEA IS
-</motion.h1>
-
-
+              className="text-5xl sm:text-6xl md:text-7xl font-semibold whitespace-nowrap hero-txt text-center sm:text-left"
+              variants={ideaVariants}
+              initial="initial"
+              animate="animate"
+            >
+              IDEA IS
+            </motion.h1>
 
             {/* Keyword animation block beside it */}
             <div className="relative min-h-[90px] flex items-center overflow-hidden">
@@ -365,12 +357,12 @@ const ideaVariants: Variants = {
             </motion.div>
 
             <motion.aside
-              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col justify-between items-center py-6"
+              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col justify-between items-center py-10"
               variants={fadeInUp}
             >
               {/* Top: Menu icon */}
               <motion.div variants={fadeInUp}>
-                <GiHamburgerMenu
+                <TiThMenu
                   className="text-white text-2xl cursor-pointer rotate-90"
                   onClick={() => setMenuOpen(true)}
                 />
@@ -378,31 +370,31 @@ const ideaVariants: Variants = {
 
               {/* Bottom: Social links with spacing */}
               <motion.nav
-                className="flex flex-col socials-link items-center gap-y-20 text-white text-xs tracking-wide font-semibold pb-4"
+                className="flex flex-col gap-y-25 items-center justify-end text-white text-xs tracking-wide font-semibold pb-7 min-h-[40vh]"
                 variants={containerVariants}
               >
                 {[
-                  {
-                    name: "Facebook",
-                    url: "https://facebook.com/ideaiscapital",
-                  },
                   { name: "X", url: "https://x.com/ideaiscapial" },
+                  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
+                  {
+                    name: "LinkedIn",
+                    url: "https://linkedin.com/company/ideaiscapital",
+                  },
                   {
                     name: "Instagram",
                     url: "https://instagram.com/ideaiscapital",
                   },
                   {
-                    name: "LinkedIn",
-                    url: "https://linkedin.com/company/ideaiscapital",
+                    name: "Facebook",
+                    url: "https://facebook.com/ideaiscapital",
                   },
-                  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
                 ].map(({ name, url }) => (
                   <motion.a
                     key={name}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rotate-[-90deg] uppercase hover:text-blue-400 transition"
+                    className="rotate-[-90deg] social-links-item w-fit  uppercase hover:text-blue-400 transition"
                     variants={fadeInUp}
                   >
                     {name}
@@ -449,7 +441,7 @@ const ideaVariants: Variants = {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.nav
-            className="container flex items-center min-h-10 justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
+            className="container flex social-links items-center min-h-10 justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
             variants={containerVariants}
           >
             {[
