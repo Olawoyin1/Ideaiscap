@@ -48,7 +48,7 @@ export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDots, setShowDots] = useState(false);
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [_isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   const navItems = [
@@ -190,11 +190,7 @@ export default function Hero() {
           <motion.h1
             className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center"
             initial={{ opacity: 1, x: 0, scale: 1 }}
-            animate={
-              phase === "keywords"
-                ? { x: isMobile ? 0 : -120, scale: 0.7 }
-                : { x: 0, scale: 1 }
-            }
+            // animate={ }
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             {/* Typed "IDEA IS" */}
