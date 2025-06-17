@@ -217,13 +217,17 @@ export default function Hero() {
       className="relative min-h-screen bg-black text-white flex items-center justify-center px-8 overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: "url(../../Images/hero.jpg)" }}
     >
+       {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-10" />
+
+
       {/* Vertical falling lines */}
       <div className="absolute container inset-0 z-0 pointer-events-none">
         <div className="relative h-full w-full flex justify-between px-20">
           {Array.from({ length: lineCount }, (_, idx) => (
             <motion.div
               key={idx}
-              className="w-px bg-gray-400 opacity-20 h-full"
+              className="w-px bg-white opacity-40 h-full"
               initial={{ y: "-100%" }}
               animate={{ y: "100%" }}
               transition={{
@@ -363,7 +367,8 @@ export default function Hero() {
               {/* Top: Menu icon */}
               <motion.div variants={fadeInUp}>
                 <TiThMenu
-                  className="text-white text-2xl cursor-pointer rotate-90"
+                
+                  className="text-white text-3xl cursor-pointer rotate-90"
                   onClick={() => setMenuOpen(true)}
                 />
               </motion.div>
