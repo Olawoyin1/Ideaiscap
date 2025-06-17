@@ -72,59 +72,39 @@ export default function Hero() {
   // const ideaVariants: Variants = {
   //   initial: {
   //     x: 0,
+  //     y: 0,
   //     scale: 1,
   //   },
-  //   animate: {
-  //     x: [-0, -120,-0,  -30],
-  //     scale: 0.7,
-  //     transition: {
-  //       scale: { duration: 0.4, ease: "easeInOut" },
-  //       x: {
-  //         delay: 0.4,
-  // times: [0, 0.6, 1],
-  //         duration: 1,
-  //         ease: "easeInOut",
+  //   animate: isMobile
+  //     ? {
+  //         scale: 0.7,
+  //         y: -20,
+  //         x: 0,
+  //         transition: {
+  //           scale: { duration: 0.4, ease: "easeInOut" },
+  //           y: {
+  //             delay: 0.3,
+  //             type: "spring",
+  //             bounce: 0.6,
+  //             stiffness: 100,
+  //             damping: 10,
+  //           },
+  //         },
+  //       }
+  //     : {
+  //         scale: 0.7,
+  //         x: [-100, 100, 0],
+  //         y: 0,
+  //         transition: {
+  //           scale: { duration: 0.4, ease: "easeInOut" },
+  //           x: {
+  //             delay: 0.3,
+  //             duration: 1.2,
+  //             ease: "easeInOut",
+  //           },
+  //         },
   //       },
-  //     },
-  //   },
   // };
-
-  const ideaVariants: Variants = {
-    initial: {
-      x: 0,
-      y: 0,
-      scale: 1,
-    },
-    animate: isMobile
-      ? {
-          scale: 0.7,
-          y: -20,
-          x: 0,
-          transition: {
-            scale: { duration: 0.4, ease: "easeInOut" },
-            y: {
-              delay: 0.3,
-              type: "spring",
-              bounce: 0.6,
-              stiffness: 100,
-              damping: 10,
-            },
-          },
-        }
-      : {
-          scale: 0.7,
-          x: [-100, 100, 0],
-          y: 0,
-          transition: {
-            scale: { duration: 0.4, ease: "easeInOut" },
-            x: {
-              delay: 0.3,
-              duration: 1.2,
-              ease: "easeInOut",
-            },
-          },
-        },
-  };
 
   const containerVariant: Variants = {
     hidden: { opacity: 0 },
@@ -143,7 +123,7 @@ export default function Hero() {
     },
   };
 
-  const introText = "IDEA IS ";
+  const introText = "IDEA IS";
 
   const spacedFinal = "IDEA IS CAPITAL".split("");
 
@@ -169,7 +149,6 @@ export default function Hero() {
 
     // Wait 3s with animated dots before showing keywords
     const delay = setTimeout(() => {
-      setShowDots(false);
       setPhase("keywords");
     }, 3000);
 
@@ -190,7 +169,7 @@ export default function Hero() {
     if (keywordIndex < keywords.length) {
       const timeout = setTimeout(() => {
         setKeywordIndex((i) => i + 1);
-      }, 2000); // Wait 2s between keywords
+      }, 3000); // Wait 3s between keywords
       return () => clearTimeout(timeout);
     }
 
@@ -217,9 +196,8 @@ export default function Hero() {
       className="relative min-h-screen bg-black text-white flex items-center justify-center px-8 overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: "url(../../Images/hero.jpg)" }}
     >
-       {/* Dark Overlay */}
+      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/40 z-10" />
-
 
       {/* Vertical falling lines */}
       <div className="absolute container inset-0 z-0 pointer-events-none">
@@ -244,7 +222,17 @@ export default function Hero() {
       <div className="text-center max-w-2xl z-10">
         {/* Step 1: Typing IDEA IS ... */}
         {phase === "intro" && (
-          <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
+          // <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
+          <motion.h1
+            className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center"
+            initial={{ opacity: 1, x: 0, scale: 1 }}
+            animate={
+              phase === "keywords"
+                ? { x: isMobile ? 0 : -120, scale: 0.7 }
+                : { x: 0, scale: 1 }
+            }
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          >
             {/* Typed "IDEA IS" */}
             {introText
               .slice(0, introIndex)
@@ -263,64 +251,53 @@ export default function Hero() {
 
             {/* Animated Dots */}
             {showDots && (
-              <div className="flex gap-1 ml-2">
+              <div className="flex gap-1">
                 {[0, 1, 2].map((i) => (
                   <motion.span
                     key={i}
                     className="text-5xl sm:text-6xl md:text-7xl text-blue-300"
-                    initial={{ opacity: 0, y: 0 }}
-                    animate={{
-                      opacity: [0, 1, 0],
-                      y: [0, -4, 0],
-                    }}
-                    transition={{
-                      duration: 1.2,
-                      repeat: Infinity,
-                      delay: i * 0.3,
-                      ease: "easeInOut",
-                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 * i, duration: 0.3 }}
                   >
                     .
                   </motion.span>
                 ))}
               </div>
             )}
-          </h1>
+          </motion.h1>
         )}
 
         {/* Step 2: Slide up keywords */}
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
-          <div
-            className={`flex flex-col ${
-              isMobile ? "items-center" : "flex-row items-center gap-4"
-            } mt-4 min-h-[70px]`}
+          <motion.h1
+            className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+            initial={{ x: "-50%", scale: 1 }}
+            animate={{ x: "-500px", scale: 0.75 }} // 👈 move farther left
+            transition={{
+              duration: 1.5, // 👈 slow down the movement
+              ease: "easeInOut",
+            }}
           >
-            {/* Static Left-Aligned IDEA IS */}
-            <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl font-semibold whitespace-nowrap hero-txt text-center sm:text-left"
-              variants={ideaVariants}
-              initial="initial"
-              animate="animate"
-            >
-              IDEA IS
-            </motion.h1>
+            IDEA IS
+          </motion.h1>
+        )}
 
-            {/* Keyword animation block beside it */}
-            <div className="relative min-h-[90px] flex items-center overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.h1
-                  key={keywords[keywordIndex - 1]}
-                  className="text-5xl sm:text-6xl md:text-7xl hero-txt font-bold text-blue-400 whitespace-nowrap"
-                  variants={keywordVariant}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  {keywords[keywordIndex - 1]}
-                </motion.h1>
-              </AnimatePresence>
-            </div>
+        {phase === "keywords" && (
+          <div className="flex justify-center items-center  min-h-[100px] relative z-10">
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={keywords[keywordIndex - 1]}
+                className="text-4xl sm:text-5xl md:text-8xl  font-bold ssf text-blue-400 text-center"
+                variants={keywordVariant}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                {keywords[keywordIndex - 1]}
+              </motion.h1>
+            </AnimatePresence>
           </div>
         )}
 
@@ -350,7 +327,7 @@ export default function Hero() {
             animate="visible"
           >
             <motion.div
-              className="flex items-center justify-center text-xl  gap-2 sm:gap-4 md:text-2xl text-gray-300 text-center"
+              className="flex items-center justify-center sf text-xl text-gray-200 font-light  gap-2 sm:gap-4 md:text-2xl  text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
@@ -361,45 +338,46 @@ export default function Hero() {
             </motion.div>
 
             <motion.aside
-              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col justify-between items-center py-10"
+              // className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col items-center py-6"
+              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 z-50 flex-col justify-between  items-center py-6"
+
               variants={fadeInUp}
             >
-              {/* Top: Menu icon */}
-              <motion.div variants={fadeInUp}>
+              {/* Top: Menu Icon */}
+              <motion.div className="mb-auto mt-8" variants={fadeInUp}>
                 <TiThMenu
-                
-                  className="text-white text-3xl cursor-pointer rotate-90"
+                  className="text-white text-3xl flex-1 cursor-pointer rotate-90"
                   onClick={() => setMenuOpen(true)}
                 />
               </motion.div>
 
-              {/* Bottom: Social links with spacing */}
+              {/* Social Links Section */}
               <motion.nav
-                className="flex flex-col gap-y-25 items-center justify-end text-white text-xs tracking-wide font-semibold pb-7 min-h-[40vh]"
+                className="flex absolute bottom-70 justify-evenly flex-1 flex-end rotate-[-90deg] items-center text-white text-xs tracking-widest font-semibold"
                 variants={containerVariants}
               >
                 {[
-                  { name: "X", url: "https://x.com/ideaiscapial" },
-                  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
                   {
-                    name: "LinkedIn",
-                    url: "https://linkedin.com/company/ideaiscapital",
+                    name: "Facebook",
+                    url: "https://facebook.com/ideaiscapital",
                   },
                   {
                     name: "Instagram",
                     url: "https://instagram.com/ideaiscapital",
                   },
                   {
-                    name: "Facebook",
-                    url: "https://facebook.com/ideaiscapital",
+                    name: "LinkedIn",
+                    url: "https://linkedin.com/company/ideaiscapital",
                   },
+                  { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
+                  { name: "X", url: "https://x.com/ideaiscapital" },
                 ].map(({ name, url }) => (
                   <motion.a
                     key={name}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rotate-[-90deg] social-links-item w-fit  uppercase hover:text-blue-400 transition"
+                    className="uppercase px-4 py-2 tracking-[5px] h-fit text-white hover:text-blue-400 transition duration-300"
                     variants={fadeInUp}
                   >
                     {name}
@@ -414,7 +392,7 @@ export default function Hero() {
             >
               <a
                 href="#journey"
-                className="bg-black text-white cursor-pointer px-7 py-2 font-semibold shadow transition-all hover:bg-blue-700 text-lg "
+                className="bg-black text-white cursor-pointer sf px-7 py-2 font-semibold shadow transition-all hover:bg-blue-700 text-lg "
               >
                 Journey
               </a>

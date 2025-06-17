@@ -4,7 +4,7 @@ body{
   overflow-x: hidden;
   color: black;
   background-color: #f0f0f0cb;
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   
 } 
 
@@ -18,8 +18,19 @@ html{
   font-size: 14px;
   font-family: "Oswald", sans-serif;
   line-height: 20px;
+  
+  
+}
 
+.ssf{
 
+  font-family: "Oswald", sans-serif !important;
+}
+
+.sf{
+  
+  /* line-height: 20px; */
+  font-weight: 100;
 }
 
 .social-links-item{
