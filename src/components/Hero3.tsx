@@ -69,43 +69,7 @@ export default function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const ideaVariants: Variants = {
-  //   initial: {
-  //     x: 0,
-  //     y: 0,
-  //     scale: 1,
-  //   },
-  //   animate: isMobile
-  //     ? {
-  //         scale: 0.7,
-  //         y: -20,
-  //         x: 0,
-  //         transition: {
-  //           scale: { duration: 0.4, ease: "easeInOut" },
-  //           y: {
-  //             delay: 0.3,
-  //             type: "spring",
-  //             bounce: 0.6,
-  //             stiffness: 100,
-  //             damping: 10,
-  //           },
-  //         },
-  //       }
-  //     : {
-  //         scale: 0.7,
-  //         x: [-100, 100, 0],
-  //         y: 0,
-  //         transition: {
-  //           scale: { duration: 0.4, ease: "easeInOut" },
-  //           x: {
-  //             delay: 0.3,
-  //             duration: 1.2,
-  //             ease: "easeInOut",
-  //           },
-  //         },
-  //       },
-  // };
-
+ 
   const containerVariant: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -282,6 +246,9 @@ export default function Hero() {
           >
             IDEA IS
           </motion.h1>
+
+          
+
         )}
 
         {phase === "keywords" && (
