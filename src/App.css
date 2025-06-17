@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
 
+
+
+*{
+    /* border: 1px solid red; */
+    box-sizing: border-box !important;
+    list-style-type: none;
+    text-decoration: none;
+  }   
+
 body{
   overflow-x: hidden;
   color: black;
   background-color: #f0f0f0cb;
   /* font-family: "Open Sans", sans-serif; */
   
+  /* font-family: "Oswald", sans-serif; */
 } 
 
 html{
@@ -13,13 +23,22 @@ html{
 }
 
 
-.socials-link{
+.sf{
   font-weight: 300;
-  font-size: 14px;
+  font-size: 13px;
   font-family: "Oswald", sans-serif;
+  /* color: red; */
   line-height: 20px;
   
   
+}
+
+.pf{
+  /* font-size: 20px; */
+  line-height: 20px;
+  font-weight: 300;
+  font-family: "Oswald", sans-serif;
+
 }
 
 .ssf{
@@ -27,11 +46,6 @@ html{
   font-family: "Oswald", sans-serif !important;
 }
 
-.sf{
-  
-  /* line-height: 20px; */
-  font-weight: 100;
-}
 
 .social-links-item{
   letter-spacing: 3px;
@@ -43,15 +57,22 @@ html{
 }
 
 
-*{
-    /* border: 1px solid red; */
-    box-sizing: border-box !important;
-    list-style-type: none;
-    text-decoration: none;
-  }   
+
   
-  .hero-txt, .cf{
-    font-family: "Dosis", sans-serif;
+  .hero-txt{
+      font-family: Dosis, Arial, sans-serif;
+        font-weight: 600;
+        margin: 0px 0px 8px;
+        padding: 0px;
+        box-sizing: border-box;
+        font-size: 70px;
+        line-height: 79.2px;
+        margin-bottom: 8px;
+        color: rgb(255, 255, 255);
+        margin-top: 0px;
+        transition: 0.6s ease-in-out;
+        scroll-behavior: smooth;
+
     
   }
   

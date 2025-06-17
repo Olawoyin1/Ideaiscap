@@ -4,7 +4,8 @@ import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { TiThMenu } from "react-icons/ti";
+// import { TiThMenu } from "react-icons/ti";
+import { IoMenu } from "react-icons/io5";
 
 const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
 const typingSpeed = 120;
@@ -21,21 +22,46 @@ const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
+// const keywordVariant: Variants = {
+//   initial: { opacity: 0, y: 50, filter: "blur(6px)" },
+//   animate: {
+//     opacity: 1,
+//     y: 0,
+//     filter: "blur(0px)",
+//     transition: { duration: 0.4, type: "spring", bounce: 0.5 },
+//   },
+//   exit: {
+//     opacity: 0,
+//     y: -40,
+//     filter: "blur(4px)",
+//     transition: { duration: 0.3 },
+//   },
+// };
+
+
 const keywordVariant: Variants = {
-  initial: { opacity: 0, y: 50, filter: "blur(6px)" },
+  initial: {
+    opacity: 0,
+    filter: "blur(6px)",
+  },
   animate: {
     opacity: 1,
-    y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.4, type: "spring", bounce: 0.5 },
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
   },
   exit: {
     opacity: 0,
-    y: -40,
     filter: "blur(4px)",
-    transition: { duration: 0.3 },
+    transition: {
+      duration: 0.3,
+      ease: "easeIn",
+    },
   },
 };
+
 
 export default function Hero() {
   const [phase, setPhase] = useState<
@@ -69,7 +95,6 @@ export default function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
- 
   const containerVariant: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -183,7 +208,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="text-center max-w-2xl z-10">
+      <div className="text-center max-w-2xl bg-red- -ml-20 -mt-8 z-10">
         {/* Step 1: Typing IDEA IS ... */}
         {phase === "intro" && (
           // <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
@@ -232,19 +257,16 @@ export default function Hero() {
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
           <motion.h1
-            className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+            className="absolute  top-1/2 left-1/2 transform -translate-y-1/2 text-5xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
             initial={{ x: "-50%", scale: 1 }}
             animate={{ x: "-500px", scale: 0.75 }} // 👈 move farther left
             transition={{
-              duration: 1.5, // 👈 slow down the movement
+              // duration: 1.5, // 👈 slow down the movement
               ease: "easeInOut",
             }}
           >
             IDEA IS
           </motion.h1>
-
-          
-
         )}
 
         {phase === "keywords" && (
@@ -252,7 +274,7 @@ export default function Hero() {
             <AnimatePresence mode="wait">
               <motion.h1
                 key={keywords[keywordIndex - 1]}
-                className="text-4xl sm:text-5xl md:text-8xl  font-bold ssf text-blue-400 text-center"
+                className="text-4xl sm:text-5xl md:text-8xl tracking-[5px] font-bold pf text-blue-400 text-center"
                 variants={keywordVariant}
                 initial="initial"
                 animate="animate"
@@ -266,7 +288,7 @@ export default function Hero() {
 
         {/* Step 3: Type "IDEA IS CAPITAL" */}
         {(phase === "typingFinal" || phase === "done") && (
-          <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold">
+          <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl ">
             {spacedFinal.slice(0, finalIndex).map((char, i) => (
               <motion.span
                 key={i}
@@ -290,7 +312,7 @@ export default function Hero() {
             animate="visible"
           >
             <motion.div
-              className="flex items-center justify-center sf text-xl text-gray-200 font-light  gap-2 sm:gap-4 md:text-2xl  text-center"
+              className="flex  items-center justify-center pf text-xl text-gray-200 uppercase   gap-2 sm:gap-4 tracking-[5px]  text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
@@ -303,12 +325,11 @@ export default function Hero() {
             <motion.aside
               // className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col items-center py-6"
               className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 z-50 flex-col justify-between  items-center py-6"
-
               variants={fadeInUp}
             >
               {/* Top: Menu Icon */}
               <motion.div className="mb-auto mt-8" variants={fadeInUp}>
-                <TiThMenu
+                <IoMenu
                   className="text-white text-3xl flex-1 cursor-pointer rotate-90"
                   onClick={() => setMenuOpen(true)}
                 />
@@ -316,7 +337,7 @@ export default function Hero() {
 
               {/* Social Links Section */}
               <motion.nav
-                className="flex absolute bottom-70 justify-evenly flex-1 flex-end rotate-[-90deg] items-center text-white text-xs tracking-widest font-semibold"
+                className="flex absolute bottom-70 justify-evenly flex-1 flex-end rotate-[-90deg] items-center text-xs tracking-widest font-semibold"
                 variants={containerVariants}
               >
                 {[
@@ -340,7 +361,7 @@ export default function Hero() {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="uppercase px-4 py-2 tracking-[5px] h-fit text-white hover:text-blue-400 transition duration-300"
+                    className="uppercase sf px-4 py-2 tracking-[5px] h-fit hover:text-blue-400 transition duration-300"
                     variants={fadeInUp}
                   >
                     {name}
@@ -350,12 +371,12 @@ export default function Hero() {
             </motion.aside>
 
             <motion.div
-              className="absolute hidden sm:block bottom-10 left-10"
+              className="absolute hidden sm:block bottom-14 left-10"
               variants={fadeInUp}
             >
               <a
                 href="#journey"
-                className="bg-black text-white cursor-pointer sf px-7 py-2 font-semibold shadow transition-all hover:bg-blue-700 text-lg "
+                className="px-5 py-[12px] font-semibold tracking-[2px] text-sm  bg-black uppercase pf text-white  cursor-pointer transition-colors duration-300 m-0 box-border leading-2 touch-manipulation appearance-none transform  opacity-100 scroll-smooth"
               >
                 Journey
               </a>
@@ -387,7 +408,7 @@ export default function Hero() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.nav
-            className="container flex social-links items-center min-h-10 justify-center text-xs cf sm:text-base gap-2 sm:gap-4 text-white uppercase tracking-wide"
+            className="container flex  items-center min-h-10 justify-center text-xs  sm:text-base gap-2 sm:gap-4 text-white uppercase "
             variants={containerVariants}
           >
             {[
@@ -405,7 +426,7 @@ export default function Hero() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400 transition"
+                  className="hover:text-blue-400  transition"
                   variants={fadeInUp}
                 >
                   {item.name}
