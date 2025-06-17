@@ -1,232 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { motion, AnimatePresence, Variants } from "framer-motion";
-// import { FiMenu } from "react-icons/fi";
-// import { GrClose } from "react-icons/gr";
-// import { Link, useNavigate } from "react-router-dom";
-
-// const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
-// const typingSpeed = 120;
-
-// const containerVariants: Variants = {
-//   hidden: { opacity: 0 },
-//   visible: {
-//     opacity: 1,
-//     transition: { staggerChildren: 0.4, ease: "easeInOut" },
-//   },
-// };
-
-// const fadeInUp: Variants = {
-//   hidden: { opacity: 0, y: 20 },
-//   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-// };
-
-// const keywordVariant: Variants = {
-//   initial: { opacity: 0, y: 50, filter: "blur(6px)" },
-//   animate: {
-//     opacity: 1,
-//     y: 0,
-//     filter: "blur(0px)",
-//     transition: { duration: 0.5, ease: "easeOut" },
-//   },
-//   exit: {
-//     opacity: 0,
-//     y: -40,
-//     filter: "blur(6px)",
-//     transition: { duration: 0.3, ease: "easeInOut" },
-//   },
-// };
-
-// export default function Hero() {
-//   const [phase, setPhase] = useState<
-//     | "intro"
-//     | "dots"
-//     | "slideIdeaLeft"
-//     | "keywordDelay"
-//     | "keywords"
-//     | "typingFinal"
-//     | "done"
-//   >("intro");
-//   const [introIndex, setIntroIndex] = useState(0);
-//   const [dotCount, setDotCount] = useState(0);
-//   const [keywordIndex, setKeywordIndex] = useState(0);
-//   const [finalIndex, setFinalIndex] = useState(0);
-//   const [menuOpen, setMenuOpen] = useState(false);
-//   const [lineCount, setLineCount] = useState(4);
-//   const [slideLeft, setSlideLeft] = useState(false);
-//   const navigate = useNavigate();
-
-//   const introText = "IDEA IS";
-//   const spacedFinal = "IDEA IS CAPITAL".split("");
-
-//   const navItems = [
-//     { name: "OUR PURPOSE", href: "/purpose" },
-//     { name: "LAST GENERATION", href: "/last-generation" },
-//     { name: "FILOSOFI", href: "/filosofi" },
-//     { name: "SOCIOLOJI", href: "/socioloji" },
-//     { name: "CONNECT", href: "/connect" },
-//   ];
-
-//   useEffect(() => {
-//     const updateLineCount = () => setLineCount(window.innerWidth < 640 ? 3 : 4);
-//     updateLineCount();
-//     window.addEventListener("resize", updateLineCount);
-//     return () => window.removeEventListener("resize", updateLineCount);
-//   }, []);
-
-//   useEffect(() => {
-//     if (phase !== "intro") return;
-//     if (introIndex < introText.length) {
-//       const timeout = setTimeout(() => setIntroIndex((i) => i + 1), typingSpeed);
-//       return () => clearTimeout(timeout);
-//     }
-//     const wait = setTimeout(() => setPhase("dots"), 500);
-//     return () => clearTimeout(wait);
-//   }, [phase, introIndex]);
-
-//   useEffect(() => {
-//     if (phase !== "dots") return;
-//     if (dotCount < 3) {
-//       const interval = setTimeout(() => setDotCount((d) => d + 1), 400);
-//       return () => clearTimeout(interval);
-//     }
-//     const slideDelay = setTimeout(() => {
-//       setPhase("slideIdeaLeft");
-//       setSlideLeft(true);
-//     }, 2000);
-//     return () => clearTimeout(slideDelay);
-//   }, [phase, dotCount]);
-
-//   useEffect(() => {
-//     if (phase !== "slideIdeaLeft") return;
-//     const delay = setTimeout(() => setPhase("keywordDelay"), 1000);
-//     return () => clearTimeout(delay);
-//   }, [phase]);
-
-//   useEffect(() => {
-//     if (phase !== "keywordDelay") return;
-//     const next = setTimeout(() => setPhase("keywords"), 1000);
-//     return () => clearTimeout(next);
-//   }, [phase]);
-
-//   useEffect(() => {
-//     if (phase !== "keywords") return;
-//     if (keywordIndex < keywords.length) {
-//       const timeout = setTimeout(() => setKeywordIndex((i) => i + 1), 1000);
-//       return () => clearTimeout(timeout);
-//     }
-//     const pause = setTimeout(() => setPhase("typingFinal"), 1500);
-//     return () => clearTimeout(pause);
-//   }, [phase, keywordIndex]);
-
-//   useEffect(() => {
-//     if (phase !== "typingFinal") return;
-//     if (finalIndex < spacedFinal.length) {
-//       const timeout = setTimeout(() => setFinalIndex((i) => i + 1), typingSpeed);
-//       return () => clearTimeout(timeout);
-//     }
-//     const done = setTimeout(() => setPhase("done"), 1000);
-//     return () => clearTimeout(done);
-//   }, [phase, finalIndex]);
-
-//   return (
-//     <section
-//       className="relative min-h-screen bg-black text-white flex items-center justify-center px-8 overflow-hidden bg-cover bg-center"
-//       style={{ backgroundImage: "url(../../Images/hero.jpg)" }}
-//     >
-//       <div className="absolute container inset-0 z-0 pointer-events-none">
-//         <div className="relative h-full w-full flex justify-between px-20">
-//           {Array.from({ length: lineCount }, (_, idx) => (
-//             <motion.div
-//               key={idx}
-//               className="w-px bg-gray-400 opacity-20 h-full"
-//               initial={{ y: "-100%" }}
-//               animate={{ y: "100%" }}
-//               transition={{
-//                 repeat: Infinity,
-//                 duration: 2.5 + idx * 0.3,
-//                 ease: "linear",
-//                 delay: idx * 0.5,
-//               }}
-//             />
-//           ))}
-//         </div>
-//       </div>
-
-//       <div className="text-center max-w-2xl z-10 flex flex-col items-center">
-//         {(phase === "intro" || phase === "dots" || phase === "slideIdeaLeft" || phase === "keywordDelay" || phase === "keywords") && (
-//           <div className="flex items-end justify-center">
-//             <motion.div
-//               className="flex"
-//               animate={slideLeft ? { x: -100, scale: 0.85 } : { x: 0, scale: 1 }}
-//               transition={{ duration: 0.6, ease: "easeInOut" }}
-//             >
-//               <motion.h1
-//                 className="text-5xl sm:text-6xl md:text-7xl font-bold hero-txt"
-//                 style={{ whiteSpace: "nowrap" }}
-//               >
-//                 {introText.split("").map((char, i) => (
-//                   <motion.span
-//                     key={i}
-//                     className="inline-block"
-//                     initial={{ opacity: 0, filter: "blur(12px)" }}
-//                     animate={{ opacity: 1, filter: "blur(0px)" }}
-//                     transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-//                   >
-//                     {char === " " ? "\u00A0" : char}
-//                   </motion.span>
-//                 ))}
-//                 {phase === "dots" && (
-//                   <motion.span
-//                     className="inline-block ml-3 tracking-widest text-blue-300"
-//                     animate={{ opacity: [0.4, 1, 0.4], filter: ["blur(4px)", "blur(0px)", "blur(4px)"] }}
-//                     transition={{ repeat: Infinity, duration: 1.2 }}
-//                   >
-//                     {".".repeat(dotCount)}
-//                   </motion.span>
-//                 )}
-//               </motion.h1>
-//             </motion.div>
-
-//             {phase === "keywords" && keywordIndex > 0 && keywordIndex <= keywords.length && (
-//               <AnimatePresence mode="wait">
-//                 <motion.h1
-//                   key={keywords[keywordIndex - 1]}
-//                   className="text-6xl sm:text-7xl md:text-8xl font-extrabold text-blue-400 ml-6 w-[160px] text-left"
-//                   variants={keywordVariant}
-//                   initial="initial"
-//                   animate="animate"
-//                   exit="exit"
-//                 >
-//                   {keywords[keywordIndex - 1]}
-//                 </motion.h1>
-//               </AnimatePresence>
-//             )}
-//           </div>
-//         )}
-
-//         {(phase === "typingFinal" || phase === "done") && (
-//           <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold">
-//             {spacedFinal.slice(0, finalIndex).map((char, i) => (
-//               <motion.span
-//                 key={i}
-//                 className="inline-block"
-//                 initial={{ opacity: 0, filter: "blur(6px)" }}
-//                 animate={{ opacity: 1, filter: "blur(0px)" }}
-//                 transition={{ duration: 0.6, delay: i * 0.05 }}
-//               >
-//                 {char === " " ? "\u00A0" : char}
-//               </motion.span>
-//             ))}
-//           </h1>
-//         )}
-//       </div>
-//     </section>
-//   );
-// }
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
@@ -277,7 +48,7 @@ export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showDots, setShowDots] = useState(false);
 
-
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
   const navItems = [
@@ -287,6 +58,82 @@ export default function Hero() {
     { name: "SOCIOLOJI", href: "/socioloji" },
     { name: "CONNECT", href: "/connect" },
   ];
+
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 640); // Tailwind's `sm`
+  };
+
+  handleResize(); // set initially
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+
+  
+
+
+
+// const ideaVariants: Variants = {
+//   initial: {
+//     x: 0,
+//     scale: 1,
+//   },
+//   animate: {
+//     x: [-0, -120,-0,  -30],
+//     scale: 0.7,
+//     transition: {
+//       scale: { duration: 0.4, ease: "easeInOut" },
+//       x: {
+//         delay: 0.4,
+        // times: [0, 0.6, 1],
+//         duration: 1,
+//         ease: "easeInOut",
+//       },
+//     },
+//   },
+// };
+
+
+const ideaVariants: Variants = {
+  initial: {
+    x: 0,
+    y: 0,
+    scale: 1,
+  },
+  animate: isMobile
+    ? {
+        scale: 0.7,
+        y: -20,
+        x: 0,
+        transition: {
+          scale: { duration: 0.4, ease: "easeInOut" },
+          y: {
+            delay: 0.3,
+            type: "spring",
+            bounce: 0.6,
+            stiffness: 100,
+            damping: 10,
+          },
+        },
+      }
+    : {
+        scale: 0.7,
+        x: [-100, 100, 0],
+        y: 0,
+        transition: {
+          scale: { duration: 0.4, ease: "easeInOut" },
+          x: {
+            delay: 0.3,
+            duration: 1.2,
+            ease: "easeInOut",
+          },
+        },
+      },
+};
+
+
+
 
   const containerVariant: Variants = {
     hidden: { opacity: 0 },
@@ -306,7 +153,7 @@ export default function Hero() {
   };
 
   const introText = "IDEA IS ";
-  
+
   const spacedFinal = "IDEA IS CAPITAL".split("");
 
   // Responsive vertical lines
@@ -317,50 +164,36 @@ export default function Hero() {
     return () => window.removeEventListener("resize", updateLineCount);
   }, []);
 
-  // Typing "IDEA IS ..." with delay
-//   useEffect(() => {
-//     if (phase !== "intro") return;
-//     if (introIndex < introText.length) {
-//       const timeout = setTimeout(() => {
-//         setIntroIndex((i) => i + 1);
-//       }, typingSpeed);
-//       return () => clearTimeout(timeout);
-//     }
-//     const delay = setTimeout(() => setPhase("keywords"), 1200);
-//     return () => clearTimeout(delay);
-//   }, [phase, introIndex]);
+  useEffect(() => {
+    if (phase !== "intro") return;
+    if (introIndex < introText.length) {
+      const timeout = setTimeout(() => {
+        setIntroIndex((i) => i + 1);
+      }, typingSpeed);
+      return () => clearTimeout(timeout);
+    }
 
+    // Start dot animation after typing finishes
+    setShowDots(true);
 
+    // Wait 3s with animated dots before showing keywords
+    const delay = setTimeout(() => {
+      setShowDots(false);
+      setPhase("keywords");
+    }, 3000);
 
-useEffect(() => {
-  if (phase !== "intro") return;
-  if (introIndex < introText.length) {
-    const timeout = setTimeout(() => {
-      setIntroIndex((i) => i + 1);
-    }, typingSpeed);
-    return () => clearTimeout(timeout);
-  }
-
-  // Start dot animation after typing finishes
-  setShowDots(true);
-
-  // Wait 3s with animated dots before showing keywords
-  const delay = setTimeout(() => {
-    setShowDots(false);
-    setPhase("keywords");
-  }, 3000);
-
-  return () => clearTimeout(delay);
-}, [phase, introIndex]);
-
+    return () => clearTimeout(delay);
+  }, [phase, introIndex]);
 
   useEffect(() => {
     if (phase !== "keywords") return;
 
     if (keywordIndex === 0) {
-      // Show first keyword instantly
-      setKeywordIndex(1);
-      return;
+      const delay = setTimeout(() => {
+        setKeywordIndex(1);
+      }, 700); // ⏱ 1 second delay before first keyword
+
+      return () => clearTimeout(delay);
     }
 
     if (keywordIndex < keywords.length) {
@@ -415,8 +248,9 @@ useEffect(() => {
 
       <div className="text-center max-w-2xl z-10">
         {/* Step 1: Typing IDEA IS ... */}
-        {/* {phase === "intro" && (
-          <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold">
+        {phase === "intro" && (
+          <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
+            {/* Typed "IDEA IS" */}
             {introText
               .slice(0, introIndex)
               .split("")
@@ -431,101 +265,68 @@ useEffect(() => {
                   {char === " " ? "\u00A0" : char}
                 </motion.span>
               ))}
+
+            {/* Animated Dots */}
+            {showDots && (
+              <div className="flex gap-1 ml-2">
+                {[0, 1, 2].map((i) => (
+                  <motion.span
+                    key={i}
+                    className="text-5xl sm:text-6xl md:text-7xl text-blue-300"
+                    initial={{ opacity: 0, y: 0 }}
+                    animate={{
+                      opacity: [0, 1, 0],
+                      y: [0, -4, 0],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    .
+                  </motion.span>
+                ))}
+              </div>
+            )}
           </h1>
-        )} */}
-
-
-        {phase === "intro" && (
-  <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
-    {/* Typed "IDEA IS" */}
-    {introText
-      .slice(0, introIndex)
-      .split("")
-      .map((char, i) => (
-        <motion.span
-          key={i}
-          className="inline-block"
-          initial={{ opacity: 0, filter: "blur(6px)" }}
-          animate={{ opacity: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.5 }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
-
-    {/* Animated Dots */}
-    {showDots && (
-      <div className="flex gap-1 ml-2">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            className="text-5xl sm:text-6xl md:text-7xl text-blue-300"
-            initial={{ opacity: 0, y: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              y: [0, -4, 0],
-            }}
-            transition={{
-              duration: 1.2,
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut",
-            }}
-          >
-            .
-          </motion.span>
-        ))}
-      </div>
-    )}
-  </h1>
-)}
-
+        )}
 
         {/* Step 2: Slide up keywords */}
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
-{phase === "keywords" && (
-  <motion.div
-    className="flex items-center justify-center gap-4 mt-4"
-    initial="initial"
-    animate="animate"
-    variants={{
-      initial: { opacity: 0 },
-      animate: {
-        opacity: 1,
-        transition: { staggerChildren: 0.3 },
-      },
-    }}
-  >
-    {/* IDEA IS - slide left and shrink with bounce */}
-    <motion.h1
-      className="text-5xl sm:text-6xl md:text-7xl hero-txt font-semibold whitespace-nowrap"
-      initial={{ x: 0, scale: 1 }}
-      animate={{ x: -40, scale: 0.7 }}
-      transition={{ type: "spring", stiffness: 140, damping: 10 }}
-    >
-      IDEA IS
-    </motion.h1>
+        {phase === "keywords" && (
+          <div className={`flex flex-col ${isMobile ? "items-center" : "flex-row items-center gap-4"} mt-4 min-h-[70px]`}>
 
-    {/* Keywords beside it */}
-    <div className="relative min-h-[90px] flex items-center overflow-hidden">
-     
-        <AnimatePresence mode="wait">
-  <motion.h1
-    key={keywords[keywordIndex - 1]}
-    className="text-5xl sm:text-6xl md:text-7xl hero-txt font-semibold text-blue-400 whitespace-nowrap"
-    variants={keywordVariant} // ✅ Use it here
-    initial="initial"
-    animate="animate"
-    exit="exit"
-  >
-    {keywords[keywordIndex - 1]}
-  </motion.h1>
-</AnimatePresence>
+            {/* Static Left-Aligned IDEA IS */}
+            <motion.h1
+  className="text-5xl sm:text-6xl md:text-7xl font-semibold whitespace-nowrap hero-txt text-center sm:text-left"
+  variants={ideaVariants}
+  initial="initial"
+  animate="animate"
+>
+  IDEA IS
+</motion.h1>
 
-    </div>
-  </motion.div>
-)}
 
+
+            {/* Keyword animation block beside it */}
+            <div className="relative min-h-[90px] flex items-center overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={keywords[keywordIndex - 1]}
+                  className="text-5xl sm:text-6xl md:text-7xl hero-txt font-bold text-blue-400 whitespace-nowrap"
+                  variants={keywordVariant}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  {keywords[keywordIndex - 1]}
+                </motion.h1>
+              </AnimatePresence>
+            </div>
+          </div>
+        )}
 
         {/* Step 3: Type "IDEA IS CAPITAL" */}
         {(phase === "typingFinal" || phase === "done") && (
@@ -563,18 +364,21 @@ useEffect(() => {
               <p>Creative</p>
             </motion.div>
 
-            {/* <motion.aside
-              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col items-center py-6"
+            <motion.aside
+              className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col justify-between items-center py-6"
               variants={fadeInUp}
             >
-              <motion.div className="mb-4" variants={fadeInUp}>
-                <FiMenu
-                  className="text-white  text-2xl cursor-pointer rotate-90"
+              {/* Top: Menu icon */}
+              <motion.div variants={fadeInUp}>
+                <GiHamburgerMenu
+                  className="text-white text-2xl cursor-pointer rotate-90"
                   onClick={() => setMenuOpen(true)}
                 />
               </motion.div>
+
+              {/* Bottom: Social links with spacing */}
               <motion.nav
-                className="flex flex-col justify-evenly flex-1 items-center text-white text-xs tracking-wide font-semibold"
+                className="flex flex-col socials-link items-center gap-y-20 text-white text-xs tracking-wide font-semibold pb-4"
                 variants={containerVariants}
               >
                 {[
@@ -582,7 +386,7 @@ useEffect(() => {
                     name: "Facebook",
                     url: "https://facebook.com/ideaiscapital",
                   },
-                  { name: "X", url: "https://x.com/ideaiscapial" }, // formerly Twitter
+                  { name: "X", url: "https://x.com/ideaiscapial" },
                   {
                     name: "Instagram",
                     url: "https://instagram.com/ideaiscapital",
@@ -598,52 +402,14 @@ useEffect(() => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rotate-[-90deg] hover:text-blue-400 transition"
+                    className="rotate-[-90deg] uppercase hover:text-blue-400 transition"
                     variants={fadeInUp}
                   >
                     {name}
                   </motion.a>
                 ))}
               </motion.nav>
-            </motion.aside> */}
-            <motion.aside
-  className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 flex-col justify-between items-center py-6"
-  variants={fadeInUp}
->
-  {/* Top: Menu icon */}
-  <motion.div variants={fadeInUp}>
-    <GiHamburgerMenu
-      className="text-white text-2xl cursor-pointer rotate-90"
-      onClick={() => setMenuOpen(true)}
-    />
-  </motion.div>
-
-  {/* Bottom: Social links with spacing */}
-  <motion.nav
-    className="flex flex-col socials-link items-center gap-y-20 text-white text-xs tracking-wide font-semibold pb-4"
-    variants={containerVariants}
-  >
-    {[
-      { name: "Facebook", url: "https://facebook.com/ideaiscapital" },
-      { name: "X", url: "https://x.com/ideaiscapial" },
-      { name: "Instagram", url: "https://instagram.com/ideaiscapital" },
-      { name: "LinkedIn", url: "https://linkedin.com/company/ideaiscapital" },
-      { name: "TikTok", url: "https://tiktok.com/@ideaiscapital" },
-    ].map(({ name, url }) => (
-      <motion.a
-        key={name}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="rotate-[-90deg] uppercase hover:text-blue-400 transition"
-        variants={fadeInUp}
-      >
-        {name}
-      </motion.a>
-    ))}
-  </motion.nav>
-</motion.aside>
-
+            </motion.aside>
 
             <motion.div
               className="absolute hidden sm:block bottom-10 left-10"
@@ -689,7 +455,10 @@ useEffect(() => {
             {[
               { name: "Facebook", url: "https://facebook.com/ideaiscap" },
               { name: "Instagram", url: "https://instagram.com/ideaiscap" },
-              { name: "LinkedIn", url: "https://linkedin.com/company/ideaiscap" },
+              {
+                name: "LinkedIn",
+                url: "https://linkedin.com/company/ideaiscap",
+              },
               { name: "TikTok", url: "https://tiktok.com/@ideaiscap" },
               { name: "X", url: "https://x.com/ideaiscap" },
             ].map((item, idx, arr) => (
@@ -728,7 +497,7 @@ useEffect(() => {
               className="absolute top-5 right-5 text-3xl cursor-pointer"
               onClick={() => setMenuOpen(false)}
             >
-              <GrClose color="#000000"/>
+              <GrClose color="#000000" />
             </div>
 
             {/* AnimatePresence for list */}
