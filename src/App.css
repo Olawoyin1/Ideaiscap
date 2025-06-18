@@ -91,5 +91,22 @@ html{
     .container{
         max-width: 90%;
     }
+    .hero-txt{
+     
+        font-weight: 500;
+        
+
     
+  }
+}
+
+
+@media (max-width:400px){
+  .hero-txt{
+     
+        font-weight: 500;
+        font-size: 2.8rem;
+
+    
+  }
 }
