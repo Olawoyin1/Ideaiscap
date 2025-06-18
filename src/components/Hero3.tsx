@@ -328,7 +328,7 @@ export default function Hero() {
             animate="visible"
           >
             <motion.div
-              className="flex  items-center justify-center pf text-[16px] md:text-xl text-gray-200 uppercase   gap-2 sm:gap-4 md:tracking-[4px] tracking-[2px]  text-center"
+              className="flex  items-center justify-center pf text-[16px] md:text-lg text-gray-200 uppercase   gap-2 sm:gap-4 md:tracking-[4px] tracking-[2px]  text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
@@ -494,7 +494,7 @@ export default function Hero() {
                         navigate(item.href); // Proper route transition
                       }, 600); // Match your motion exit transition
                     }}
-                    className="hover:text-blue-400  text-black cf transition"
+                    className="hover:text-blue-400 tracking-[3px] text-xl font-semibold text-black pf transition"
                   >
                     {item.name}
                   </Link>
