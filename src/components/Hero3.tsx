@@ -208,7 +208,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="text-center max-w-2xl bg-red- md:-ml-20 md:-mt-8 z-10">
+      <div className="text-center max-w-2xl md:-ml-20 md:-mt-8 z-10">
         {/* Step 1: Typing IDEA IS ... */}
         {phase === "intro" && (
           // <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 justify-center">
@@ -253,7 +253,7 @@ export default function Hero() {
           </motion.h1>
         )}
 
-        {/* Step 2: Slide up keywords */}
+       
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
           // <motion.h1
@@ -278,6 +278,7 @@ export default function Hero() {
           }
           transition={{
             ease: "easeInOut",
+            duration: 0.3,
           }}
         >
           IDEA IS
@@ -321,13 +322,13 @@ export default function Hero() {
         {/* Final UI */}
         {phase === "done" && (
           <motion.div
-            className="mt-6"
+            className="-mt-1 md:mt-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
             <motion.div
-              className="flex  items-center justify-center pf text-xl text-gray-200 uppercase   gap-2 sm:gap-4 md:tracking-[5px] tracking-[2px]  text-center"
+              className="flex  items-center justify-center pf text-[16px] md:text-xl text-gray-200 uppercase   gap-2 sm:gap-4 md:tracking-[4px] tracking-[2px]  text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
@@ -417,13 +418,13 @@ export default function Hero() {
 
       {phase === "done" && (
         <motion.div
-          className="fixed block sm:hidden bottom-0 left-0 w-full bg-black/80 backdrop-blur-sm py-3 z-50"
+          className="fixed block sm:hidden bottom-0 left-0 w-full bg-[#1c1b1b]  py-3 z-50"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.nav
-            className="container flex  items-center min-h-10 justify-center text-xs  sm:text-base gap-2 sm:gap-4 text-white uppercase "
+            className="container flex  items-center min-h-8 justify-center text-xs  sm:text-base gap-3 sm:gap-4 text-white uppercase "
             variants={containerVariants}
           >
             {[
@@ -441,7 +442,7 @@ export default function Hero() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400 pf transition"
+                  className="hover:text-blue-400 tracking-[2px] font-semibold pf transition"
                   variants={fadeInUp}
                 >
                   {item.name}
