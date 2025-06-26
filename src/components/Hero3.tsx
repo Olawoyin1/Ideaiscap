@@ -38,7 +38,6 @@ const fadeInUp: Variants = {
 //   },
 // };
 
-
 const keywordVariant: Variants = {
   initial: {
     opacity: 0,
@@ -61,7 +60,6 @@ const keywordVariant: Variants = {
     },
   },
 };
-
 
 export default function Hero() {
   const [phase, setPhase] = useState<
@@ -253,7 +251,6 @@ export default function Hero() {
           </motion.h1>
         )}
 
-       
         {/* Step 2: Slide "IDEA IS" to the left and show keywords sliding up beside it */}
         {phase === "keywords" && (
           // <motion.h1
@@ -269,20 +266,20 @@ export default function Hero() {
           // </motion.h1>
 
           <motion.h1
-          className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-4xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
-          initial={{ x: "-50%", y: "-50%", scale: 1 }}
-          animate={
-            isMobile
-              ? { y: "-80px", scale: 0.75 } // 👈 Slide up on mobile
-              : { x: "-500px", y:"-10px", scale: 0.75 } // 👈 Slide left on desktop
-          }
-          transition={{
-            ease: "easeInOut",
-            duration: 0.3,
-          }}
-        >
-          IDEA IS
-        </motion.h1>
+            className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-4xl sm:text-6xl md:text-7xl font-semibold hero-txt z-30"
+            initial={{ x: "-50%", y: "-50%", scale: 1 }}
+            animate={
+              isMobile
+                ? { y: "-80px", scale: 0.75 } // 👈 Slide up on mobile
+                : { x: "-500px", y: "-10px", scale: 0.75 } // 👈 Slide left on desktop
+            }
+            transition={{
+              ease: "easeInOut",
+              duration: 0.3,
+            }}
+          >
+            IDEA IS
+          </motion.h1>
         )}
 
         {phase === "keywords" && (
@@ -511,3 +508,257 @@ export default function Hero() {
     </section>
   );
 }
+
+// import { useEffect, useState } from "react";
+// import { motion, AnimatePresence, Variants } from "framer-motion";
+// import { IoMenu } from "react-icons/io5";
+
+// const keywords = ["CHANGE", "ACTION", "PURPOSE", "SOLUTION"];
+// const typingSpeed = 120;
+
+// const keywordVariant: Variants = {
+//   initial: { opacity: 0, filter: "blur(6px)" },
+//   animate: {
+//     opacity: 1,
+//     filter: "blur(0px)",
+//     transition: { duration: 0.4, ease: "easeOut" },
+//   },
+//   exit: {
+//     opacity: 0,
+//     filter: "blur(4px)",
+//     transition: { duration: 0.3, ease: "easeIn" },
+//   },
+// };
+
+// const containerVariants: Variants = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: { staggerChildren: 0.4, ease: "easeInOut" },
+//   },
+// };
+
+// const fadeInUp: Variants = {
+//   hidden: { opacity: 0, y: 20 },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     transition: { duration: 0.6, ease: "easeOut" },
+//   },
+// };
+
+// export default function Hero() {
+//   const [phase, setPhase] = useState<
+//     "intro" | "keywords" | "typingFinal" | "done"
+//   >("intro");
+//   const [introIndex, setIntroIndex] = useState(0);
+//   const [keywordIndex, setKeywordIndex] = useState(0);
+//   const [finalIndex, setFinalIndex] = useState(0);
+//   const [showDots, setShowDots] = useState(false);
+//   const [hideDots, setHideDots] = useState(false);
+//   const [moveIdeaUp, setMoveIdeaUp] = useState(false);
+
+//   const introText = "IDEA IS";
+//   const spacedFinal = "IDEA IS CAPITAL".split("");
+
+//   useEffect(() => {
+//     if (phase !== "intro") return;
+//     if (introIndex < introText.length) {
+//       const timeout = setTimeout(
+//         () => setIntroIndex((i) => i + 1),
+//         typingSpeed
+//       );
+//       return () => clearTimeout(timeout);
+//     }
+
+//     const dotsTimer = setTimeout(() => setShowDots(true), 1000);
+//     const hideDotsTimer = setTimeout(() => {
+//       setHideDots(true);
+//       setMoveIdeaUp(true);
+//     }, 4000);
+//     const nextPhaseTimer = setTimeout(() => setPhase("keywords"), 4500);
+
+//     return () => {
+//       clearTimeout(dotsTimer);
+//       clearTimeout(hideDotsTimer);
+//       clearTimeout(nextPhaseTimer);
+//     };
+//   }, [phase, introIndex]);
+
+//   useEffect(() => {
+//     if (phase !== "keywords") return;
+//     if (keywordIndex === 0) {
+//       const delay = setTimeout(() => setKeywordIndex(1), 500);
+//       return () => clearTimeout(delay);
+//     }
+//     if (keywordIndex < keywords.length) {
+//       const timeout = setTimeout(() => setKeywordIndex((i) => i + 1), 3000);
+//       return () => clearTimeout(timeout);
+//     }
+//     const next = setTimeout(() => setPhase("typingFinal"), 3000);
+//     return () => clearTimeout(next);
+//   }, [phase, keywordIndex]);
+
+//   useEffect(() => {
+//     if (phase !== "typingFinal") return;
+//     if (finalIndex < spacedFinal.length) {
+//       const timeout = setTimeout(
+//         () => setFinalIndex((i) => i + 1),
+//         typingSpeed
+//       );
+//       return () => clearTimeout(timeout);
+//     }
+//     const doneTimeout = setTimeout(() => setPhase("done"), 600);
+//     return () => clearTimeout(doneTimeout);
+//   }, [phase, finalIndex]);
+
+//   return (
+//     <section
+//       className="relative min-h-screen bg-black text-white flex items-center justify-center px-8 overflow-hidden bg-cover bg-center"
+//       style={{ backgroundImage: "url(../../Images/hero.jpg)" }}
+//     >
+//       <div className="absolute inset-0 bg-black/40 z-10" />
+//       <div
+//         className={`md:text-left md:-ml-20 md:-mt-8 z-10 transition-all duration-700 ease-in-out
+//         ${
+//           phase === "typingFinal" || phase === "done"
+//             ? "w-fit"
+//             : "sm:w-[330px] "
+//         }`}
+//       >
+//         <motion.div
+//           animate={moveIdeaUp ? { scale: 0.7, y: -60} : { scale: 1, y: 0 }}
+//           style={{ transformOrigin: "left top" }}
+//           transition={{ duration: 0.8, ease: "easeInOut" }}
+//           className="-2 h-auto"
+//         >
+//           {(phase === "intro" || phase === "keywords") && (
+//             <motion.h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold flex items-center gap-1 hero-txt">
+//               {introText.split("").map((char, i) => (
+//                 <motion.span
+//                   key={i}
+//                   initial={{ opacity: 0, filter: "blur(6px)" }}
+//                   animate={
+//                     i < introIndex ? { opacity: 1, filter: "blur(0px)" } : {}
+//                   }
+//                   transition={{ duration: 0.5, delay: i * 0.05 }}
+//                 >
+//                   {char === " " ? "\u00A0" : char}
+//                 </motion.span>
+//               ))}
+//               {showDots && !hideDots && (
+//                 <div className="flex gap-1 ml-2">
+//                   {[0, 1, 2].map((i) => (
+//                     <motion.span
+//                       key={i}
+//                       className="text-blue-300"
+//                       initial={{ opacity: 0 }}
+//                       animate={{ opacity: 1 }}
+//                       transition={{ delay: 0.4 * i, duration: 0.3 }}
+//                     >
+//                       .
+//                     </motion.span>
+//                   ))}
+//                 </div>
+//               )}
+//             </motion.h1>
+//           )}
+//         </motion.div>
+
+//         {phase === "keywords" && (
+//           <div className="  relative z-10">
+//             <AnimatePresence mode="wait">
+//               <motion.h1
+//                 key={keywords[keywordIndex - 1]}
+//                 className="text-6xl md:text-9xl tracking-[4px] font-bold pf text-blue-400 text-left"
+//                 variants={keywordVariant}
+//                 initial="initial"
+//                 animate="animate"
+//                 exit="exit"
+//               >
+//                 {keywords[keywordIndex - 1]}
+//               </motion.h1>
+//             </AnimatePresence>
+//           </div>
+//         )}
+
+//         {(phase === "typingFinal" || phase === "done") && (
+//           <h1 className="text-5xl hero-txt sm:text-6xl md:text-7xl">
+//             {spacedFinal.slice(0, finalIndex).map((char, i) => (
+//               <motion.span
+//                 key={i}
+//                 className="inline-block"
+//                 initial={{ opacity: 0, filter: "blur(6px)" }}
+//                 animate={{ opacity: 1, filter: "blur(0px)" }}
+//                 transition={{ duration: 1 }}
+//               >
+//                 {char === " " ? "\u00A0" : char}
+//               </motion.span>
+//             ))}
+//           </h1>
+//         )}
+
+//         {phase === "done" && (
+//           <motion.div
+//             className="mt-6"
+//             variants={containerVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             <motion.div
+// className="flex items-center justify-center pf text-sm md:text-lg text-gray-200 uppercase gap-4 tracking-[2px]"
+// variants={fadeInUp}
+//             >
+//               <p>Innovative</p>
+//               <p>|</p>
+//               <p>Imaginative</p>
+//               <p>|</p>
+//               <p>Creative</p>
+//             </motion.div>
+
+// <motion.div
+//   className="absolute hidden sm:block bottom-14 left-10"
+//   variants={fadeInUp}
+// >
+//   <a
+//     href="#journey"
+//     className="px-5 py-[12px] hover:bg-[#0584F2] font-semibold tracking-[2px] text-sm  bg-black uppercase pf text-white  cursor-pointer transition-colors duration-300 m-0 box-border leading-2 touch-manipulation appearance-none transform  opacity-100 scroll-smooth"
+//   >
+//     Journey
+//   </a>
+// </motion.div>
+
+// <motion.aside
+//   className="absolute hidden sm:flex right-0 top-0 h-screen w-20 bg-black/30 z-50 flex-col justify-between items-center py-6"
+//   variants={fadeInUp}
+// >
+//   <motion.div className="mb-auto mt-8" variants={fadeInUp}>
+//     <IoMenu
+//       className="text-white text-3xl rotate-90 cursor-pointer"
+//       onClick={() => alert("Menu Clicked")}
+//     />
+//   </motion.div>
+//   <motion.nav
+//     className="flex absolute bottom-70 rotate-[-90deg] items-center text-xs tracking-widest font-semibold"
+//     variants={containerVariants}
+//   >
+//     {["Facebook", "Instagram", "LinkedIn", "TikTok", "X"].map(
+//       (name) => (
+//         <motion.a
+//           key={name}
+//           href="#"
+//           className="uppercase sf px-4 py-2 tracking-[5px] hover:text-blue-400 transition duration-300"
+//           variants={fadeInUp}
+//         >
+//           {name}
+//         </motion.a>
+//       )
+//     )}
+//   </motion.nav>
+// </motion.aside>
+//           </motion.div>
+//         )}
+//       </div>
+//     </section>
+//   );
+// }

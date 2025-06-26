@@ -1,4 +1,4 @@
-import Hero from "../components/Hero3";
+import Hero from "../components/Hero7";
 import Journey from "../components/Journey";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
