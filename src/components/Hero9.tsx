@@ -37,6 +37,23 @@ const Hero = () => {
     { name: "CONNECT", href: "/connect" },
   ];
 
+  const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", bounce: 0.4 },
+  },
+};
+
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.3, delayChildren: 0.7 },
+  },
+};
+
   useEffect(() => {
     const updateLineCount = () =>
       setLineCount(window.innerWidth < 640 ? 3 : 4);
@@ -218,7 +235,7 @@ const Hero = () => {
         </motion.div>
       )}
 
-      {/* Menu Overlay */}
+      {/* Slide-up menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -228,6 +245,7 @@ const Hero = () => {
             exit={{ y: "100%" }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
+            {/* Close icon */}
             <div
               className="absolute top-5 right-5 text-3xl cursor-pointer"
               onClick={() => setMenuOpen(false)}
@@ -235,15 +253,16 @@ const Hero = () => {
               <GrClose color="#000000" />
             </div>
 
+            {/* AnimatePresence for list */}
             <motion.ul
-              className="text-xl sm:text-3xl space-y-6 text-center"
-              variants={containerVariants}
+              className="w-full text-xl sm:text-3xl space-y-6 text-center"
+              variants={containerVariant}
               initial="hidden"
               animate="visible"
               exit="hidden"
             >
               {navItems.map((item, index) => (
-                <motion.li key={item.name} variants={fadeInUp}>
+                <motion.li key={item.name} variants={itemVariant}>
                   <Link
                     to={item.href}
                     onClick={(e) => {
@@ -253,7 +272,7 @@ const Hero = () => {
                         // navigate(item.href); // Proper route transition
                       }, 600); // Match your motion exit transition
                     }}
-                    className={`hover:text-blue-400 tracking-[3px] text-black transition ${
+                    className={`hover:text-blue-400 tracking-[2px] text-black transition ${
         index === 0 ? "text-2xl md:text-4xl" : "text-xl" } `}
                   >
                     {item.name}
