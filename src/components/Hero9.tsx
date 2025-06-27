@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 
 const typingSpeed = 120;
@@ -25,7 +25,7 @@ const Hero = () => {
   const [finalIndex, setFinalIndex] = useState(0);
   const [lineCount, setLineCount] = useState(4);
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
   const spacedFinal = "IDEA IS CAP".split("");
 
