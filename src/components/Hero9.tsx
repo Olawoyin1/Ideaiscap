@@ -272,8 +272,8 @@ const containerVariant: Variants = {
                         // navigate(item.href); // Proper route transition
                       }, 600); // Match your motion exit transition
                     }}
-                    className={`hover:text-blue-400 tracking-[2px] text-black transition ${
-        index === 0 ? "text-2xl md:text-4xl" : "text-xl" } `}
+                    className={`hover:text-blue-400 tracking-[2px]  text-black transition ${
+        index === 0 ? "text-2xl md:text-4xl" : "text-xl font-light" } `}
                   >
                     {item.name}
                   </Link>
