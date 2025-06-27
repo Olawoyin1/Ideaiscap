@@ -108,7 +108,7 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div
-              className="flex items-center justify-center pf text-[16px] md:text-lg text-gray-200 uppercase gap-2 sm:gap-4 md:tracking-[4px] tracking-[2px] text-center"
+              className="flex items-center justify-center pf text-[16px] md:text-lg text-gray-200 uppercase gap-2 sm:gap-4 md:tracking-[4px] tracking-[2px] mt-4  md:mt-0 text-center"
               variants={fadeInUp}
             >
               <p>Innovative</p>
