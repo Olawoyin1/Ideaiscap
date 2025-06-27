@@ -1,9 +1,6 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-// import { IoMenu } from "react-icons/io5";
-// import React, { useEffect, useState } from "react";
-// import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Link } from "react-router-dom";
@@ -323,7 +320,8 @@ const containerVariant: Variants = {
                           <motion.div className="mb-auto mt-8" variants={fadeInUp}>
                             <IoMenu
                               className="text-white text-3xl rotate-90 cursor-pointer"
-                              onClick={() => alert("Menu Clicked")}
+                              // onClick={() => alert("Menu Clicked")}
+                              onClick={() => setMenuOpen(true)}
                             />
                           </motion.div>
                           <motion.nav
