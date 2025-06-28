@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
@@ -320,6 +320,49 @@ const containerVariant: Variants = {
       )}
 
 
+
+        {phase === "finalReveal" && (
+              <motion.div
+                className="fixed block sm:hidden bottom-0 left-0 w-full bg-[#1c1b1b]  py-3 z-50"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <motion.nav
+                  className="container flex  items-center min-h-8 justify-center text-xs  sm:text-base gap-3 sm:gap-4 text-white uppercase "
+                  variants={containerVariants}
+                >
+                  {[
+                    { name: "Facebook", url: "https://facebook.com/ideaiscap" },
+                    { name: "Instagram", url: "https://instagram.com/ideaiscap" },
+                    {
+                      name: "LinkedIn",
+                      url: "https://linkedin.com/company/ideaiscap",
+                    },
+                    { name: "TikTok", url: "https://tiktok.com/@ideaiscap" },
+                    { name: "X", url: "https://x.com/ideaiscap" },
+                  ].map((item, idx, arr) => (
+                    <React.Fragment key={item.name}>
+                      <motion.a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-400 tracking-[2px] font-semibold pf transition"
+                        variants={fadeInUp}
+                      >
+                        {item.name}
+                      </motion.a>
+                      {idx < arr.length - 1 && (
+                        <motion.span className="text-white/50" variants={fadeInUp}>
+                          |
+                        </motion.span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </motion.nav>
+              </motion.div>
+            )}
+      
       
  
 
