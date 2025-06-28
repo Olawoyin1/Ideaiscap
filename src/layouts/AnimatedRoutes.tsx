@@ -10,6 +10,7 @@ import Generation from "../pages/Generation";
 import Filosofi from "../pages/Filosofi";
 import Socioloji from "../pages/Socioloji";
 import Connect from "../pages/Connect";
+import Journey from "../components/Journey";
 
 export default function AnimatedRoutes() {
   const location = useLocation();
@@ -27,6 +28,10 @@ export default function AnimatedRoutes() {
               <Home />
             </motion.div>
           }
+        />
+        <Route
+          path="/journey"
+          element={<PageWrapper><Journey /></PageWrapper>}
         />
         <Route
           path="/purpose"

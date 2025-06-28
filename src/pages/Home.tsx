@@ -1,5 +1,4 @@
-import Hero from "../components/Hero9";
-import Journey from "../components/Journey";
+import Hero from "../components/Latest";
 // import IdeaAnimation from "../components/New";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
@@ -7,7 +6,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
-      <Journey />
+      {/* <Journey /> */}
       <ScrollToTopButton />
     </div>
   );
