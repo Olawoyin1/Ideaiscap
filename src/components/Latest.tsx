@@ -215,7 +215,7 @@ const containerVariant: Variants = {
         </div>
       </div>
 
-      <div className="text-center sm:-ml-20 sm:-mt-8 w-full w-full z-10 min-h-[120px] px-1 sm:px-0">
+      <div className="text-center sm:-ml-20 sm:-mt-8 w-full z-10 min-h-[120px] px-1 sm:px-0">
         {(phase !== "typingFinal" && phase !== "finalReveal") && (
           <motion.h1
             key={text}
@@ -232,7 +232,7 @@ const containerVariant: Variants = {
         )}
 
         {(phase === "typingFinal" || phase === "finalReveal") && (
-          <h1 className="text-4xl sm:text-5xl md:text-7xl hero-txt leading-snug">
+          <h1 className="text-5xl md:text-7xl hero-txt font-bold leading-snug">
             {finalText.slice(0, finalIndex).map((char, i) => (
               <motion.span
                 key={i}
