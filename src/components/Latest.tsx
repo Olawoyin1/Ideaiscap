@@ -215,7 +215,7 @@ const containerVariant: Variants = {
         </div>
       </div>
 
-      <div className="text-center sm:-ml-20 sm:-mt-8 max-w-[95%] sm:max-w-2xl z-10 min-h-[120px] px-2 sm:px-0">
+      <div className="text-center sm:-ml-20 sm:-mt-8 w-full w-full z-10 min-h-[120px] px-1 sm:px-0">
         {(phase !== "typingFinal" && phase !== "finalReveal") && (
           <motion.h1
             key={text}
