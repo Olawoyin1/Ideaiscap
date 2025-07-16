@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ setMenuOpen }) => {
               <p>|</p>
               <p>Imaginative</p>
               <p>|</p>
-              <p>Creative</p>
+              <p>Creative</p> 
             </motion.div>
 
             {/* Side Nav */}
@@ -161,8 +161,8 @@ const Hero: React.FC<HeroProps> = ({ setMenuOpen }) => {
         )}
       </div>
 
-      {/* Mobile Menu Trigger */}
      
+      {/* Mobile Menu Trigger */}
       {phase === "done" && (
         <motion.div
           className="absolute sm:hidden top-7 right-7 rotate-90 z-20"
