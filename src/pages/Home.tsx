@@ -1,11 +1,15 @@
 
+import { useState } from "react";
 import Hero from "../components/Hero9";
+import Navbar from "../components/Navbar";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
 const Home = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div>
-      <Hero />
+        <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Hero  setMenuOpen={setMenuOpen}/>
       {/* <Journey /> */}
       <ScrollToTopButton />
     </div>

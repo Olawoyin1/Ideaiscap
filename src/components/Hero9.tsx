@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import {  motion, Variants } from "framer-motion";
 import { FiMenu } from "react-icons/fi";
-import { GrClose } from "react-icons/gr";
-import { Link, useNavigate } from "react-router-dom";
 
 import { IoMenu } from "react-icons/io5";
 
@@ -21,41 +19,18 @@ const fadeInUp: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const Hero = () => {
+interface HeroProps {
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Hero: React.FC<HeroProps> = ({ setMenuOpen }) => {
   const [phase, setPhase] = useState<"typingFinal" | "done">("typingFinal");
   const [finalIndex, setFinalIndex] = useState(0);
   const [lineCount, setLineCount] = useState(4);
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   //   const navigate = useNavigate();
-  
+
   const spacedFinal = "IDEA IS CAP".split("");
-  const navigate = useNavigate()
-
-  const navItems = [
-    { name: "LAST GENERATION", href: "/last-generation" },
-    { name: "OUR PURPOSE", href: "/purpose" },
-    { name: "JOURNEY", href: "/journey" },
-    { name: "FILOSOFI", href: "/filosofi" },
-    { name: "SOCIOLOJI", href: "/socioloji" },
-    { name: "CONNECT", href: "/connect" },
-  ];
-
-  const itemVariant: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", bounce: 0.4 },
-    },
-  };
-
-  const containerVariant: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.7 },
-    },
-  };
 
   useEffect(() => {
     const updateLineCount = () => setLineCount(window.innerWidth < 640 ? 3 : 4);
@@ -238,60 +213,6 @@ const Hero = () => {
       )}
 
       {/* Slide-up menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="fixed inset-0 bg-white z-50 flex items-center justify-center"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            {/* Close icon */}
-            <div
-              className="absolute top-5 right-5 text-3xl cursor-pointer"
-              onClick={() => setMenuOpen(false)}
-            >
-              <GrClose color="#000000" />
-            </div>
-
-            {/* AnimatePresence for list */}
-            <motion.ul
-              className="w-full text-xl sm:text-3xl space-y-6 text-center"
-              variants={containerVariant}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-            >
-              {navItems.map((item, index) => (
-                <motion.li key={item.name} variants={itemVariant}>
-                  <Link
-                    to={item.href}
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent immediate routing
-                      setMenuOpen(false); // Trigger exit animation
-                      setTimeout(() => {
-                        navigate(item.href); // Proper route transition
-                      }, 600); // Match your motion exit transition
-                    }}
-                    className={`hover:text-blue-400 tracking-[2px]  text-black transition ${
-                      index === 0
-                        ? "text-2xl md:text-4xl"
-                        : "text-xl font-light"
-                    } `}
-                  >
-                    {item.name}
-                  </Link>
-
-                  {item.name === "LAST GENERATION" && (
-                    <div className="h-px w-[80%]  md:w-130 mx-auto bg-black/20 mt-9" />
-                  )}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
