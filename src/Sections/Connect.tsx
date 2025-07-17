@@ -59,7 +59,7 @@ const Connect: React.FC = () => {
   };
 
   return (
-    <section className="py-16 px-6 md:px-12 md:min-h-screen flex flex-col md:items-center justify-center">
+    <section className="py-16  bg-white px-6 md:px-12 md:min-h-screen flex flex-col md:items-center justify-center">
       <div className="w-full md:w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center">
           Connect With Us

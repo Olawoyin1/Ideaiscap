@@ -68,7 +68,7 @@ const Contributors = () => {
   };
 
   return (
-    <section className="py-20 md:py-10 max-w-7xl mx-auto md:h-screen flex items-center justify-center flex-col px-10 md:px-12">
+    <section className="py-20 bg-white md:py-10 max-w-7xl mx-auto md:h-screen flex items-center justify-center flex-col px-10 md:px-12">
       <div className="w-full">
         <h1 className="text-2xl font-extrabold mb-4 text-gray-800">Meet Our Contributors</h1>
         <p className="text-gray-600 leading-relaxed mb-1">

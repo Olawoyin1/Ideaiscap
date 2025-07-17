@@ -1,7 +1,7 @@
 
 const Filosofi = () => {
   return (
-    <div>Filosofi</div>
+    <div className="bg-white">Filosofi</div>
   )
 }
 
