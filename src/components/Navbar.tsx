@@ -25,12 +25,12 @@ const itemVariant: Variants = {
 
 const navItems = [
   { name: "LAST GENERATION", key: "last-generation" },
-  { name: "IDEA IS CAP", key: "ideaiscapital" },
-  { name: "JOURNEY", key: "journey" },
-  { name: "OUR PURPOSE", key: "purpose" },
-  { name: "THE EDITOR", key: "editor" },
-  { name: "CONTRIBUTORS", key: "contributors" },
-  { name: "JOIN THE MOVEMENT", key: "movement" },
+//   { name: "IDEA IS CAP", key: "ideaiscapital" },
+{ name: "OUR PURPOSE", key: "purpose" },
+{ name: "JOURNEY", key: "journey" },
+//   { name: "THE EDITOR", key: "editor" },
+//   { name: "CONTRIBUTORS", key: "contributors" },
+//   { name: "JOIN THE MOVEMENT", key: "movement" },
   { name: "FILOSOFI", key: "filosofi" },
   { name: "SOSIOLOJI", key: "sosioloji" },
   { name: "CONNECT", key: "connect" },

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
-// import Hero from "../components/Hero9";
-import Hero from "../components/Main";
+import Hero from "../components/Hero9";
+// import Hero from "../components/Main2";
 import Navbar from "../components/Navbar";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
